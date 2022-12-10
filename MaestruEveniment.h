@@ -1,17 +1,22 @@
 #pragma once
 #include <iostream>
+#include "Eveniment.h"
 using namespace std;
 class MaestruEveniment
 {
 private:
 	string nume;
-	int cod;
+	string parola;
+	Eveniment* evenimente;
+	int nrEvenimente;
 public:
 	MaestruEveniment();
-	MaestruEveniment(const string&, int);
+	MaestruEveniment(const string&, const string&);
 	MaestruEveniment(const MaestruEveniment&);
 	~MaestruEveniment();
 	MaestruEveniment& operator=(const MaestruEveniment&);
 	string getNume();
-	int getCod();
+	void setNume(const string&);
+	void setParola(const string&);
+	void adaugaEveniment();
 };

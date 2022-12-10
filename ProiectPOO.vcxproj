@@ -104,6 +104,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,12 +131,15 @@
   <ItemGroup>
     <ClCompile Include="Bilet.cpp" />
     <ClCompile Include="Eveniment.cpp" />
+    <ClCompile Include="Locatie.cpp" />
     <ClCompile Include="MaestruEveniment.cpp" />
     <ClCompile Include="ProiectPOO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdminPassword.h" />
     <ClInclude Include="Bilet.h" />
     <ClInclude Include="Eveniment.h" />
+    <ClInclude Include="Locatie.h" />
     <ClInclude Include="MaestruEveniment.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

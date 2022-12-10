@@ -27,6 +27,9 @@
     <ClCompile Include="MaestruEveniment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Locatie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Eveniment.h">
@@ -36,6 +39,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MaestruEveniment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Locatie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminPassword.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
