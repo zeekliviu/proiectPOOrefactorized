@@ -1,0 +1,9 @@
+﻿  Bilet.cpp
+C:\Users\thepr\Desktop\POO\ProiectPOO\Bilet.cpp(36,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\POO\ProiectPOO\Bilet.cpp(60,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\POO\ProiectPOO\Bilet.cpp(92,21): warning C4018: '<': signed/unsigned mismatch
+  Eveniment.cpp
+  MaestruEveniment.cpp
+  ProiectPOO.cpp
+  Generating Code...
+  ProiectPOO.vcxproj -> C:\Users\thepr\Desktop\POO\ProiectPOO\x64\Debug\ProiectPOO.exe
