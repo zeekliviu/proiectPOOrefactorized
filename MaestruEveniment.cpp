@@ -34,27 +34,88 @@ string MaestruEveniment::getNume()
 }
 void MaestruEveniment::setNume(const string& nume)
 {
-	this->nume = nume;
+		this->nume = nume;
 }
 void MaestruEveniment::setParola(const string& parola)
 {
-	this->parola = parola;
+	if (nume == "Admin")
+		this->parola = parola;
 }
 void MaestruEveniment::adaugaEveniment()
 {
-	if(nrEvenimente)
+	if(nume=="Admin")
 	{
-		Eveniment* aux = new Eveniment[nrEvenimente];
-		for (int i = 0; i < nrEvenimente; i++)
-			aux[i] = evenimente[i];
-		delete[] evenimente;
-		evenimente = new Eveniment[nrEvenimente + 1];
-		for (int i = 0; i < nrEvenimente; i++)
-			evenimente[i] = aux[i];
-		delete[] aux;
-		nrEvenimente++;
-		cin >> evenimente[nrEvenimente];
+		if (nrEvenimente)
+		{
+			Eveniment* aux = new Eveniment[nrEvenimente];
+			for (int i = 0; i < nrEvenimente; i++)
+				aux[i] = evenimente[i];
+			delete[] evenimente;
+			evenimente = new Eveniment[nrEvenimente + 1];
+			for (int i = 0; i < nrEvenimente; i++)
+				evenimente[i] = aux[i];
+			delete[] aux;
+			nrEvenimente++;
+			cin >> evenimente[nrEvenimente - 1];
+		}
+		else
+		{
+			nrEvenimente++;
+			evenimente = new Eveniment[nrEvenimente];
+			cin >> evenimente[nrEvenimente - 1];
+		}
 	}
-	else
-		evenimente = new Eveniment[nrEvenimente++];
+}
+void MaestruEveniment::stergeEveniment(unsigned int id)
+{
+	if (nume == "Admin")
+	{
+		if (nrEvenimente)
+		{
+			bool ok = false;
+			for (int i = 0; i < nrEvenimente; i++)
+				if (evenimente[i].getId() == id)
+					ok = true;
+			if(ok)
+			{
+				Eveniment* aux = new Eveniment[nrEvenimente - 1];
+				int j = 0;
+				for (int i = 0; i < nrEvenimente; i++)
+					if (evenimente[i].getId() != id)
+						aux[j++] = evenimente[i];
+				delete[] evenimente;
+				nrEvenimente--;
+				evenimente = new Eveniment[nrEvenimente];
+				for (int i = 0; i < nrEvenimente; i++)
+					evenimente[i] = aux[i];
+				delete[] aux;
+			}
+			else cout << "Evenimentul nu exista\n";
+		}
+	}
+}
+void MaestruEveniment::modificaEveniment(unsigned int id)
+{
+	if (nume == "Admin")
+	{
+		if (nrEvenimente)
+		{
+			bool ok = false;
+			for (int i = 0; i < nrEvenimente; i++)
+				if (evenimente[i].getId() == id)
+				{
+					ok = true;
+					cin >> evenimente[i];
+				}
+			if (!ok)
+				cout << "Evenimentul nu exista\n";	
+		}
+	}
+}
+void MaestruEveniment::afiseazaEvenimente()
+{
+	if (nrEvenimente)
+		for (int i = 0; i < nrEvenimente; i++)
+			cout << evenimente[i];
+	else cout << "Nu exista evenimente\n";
 }

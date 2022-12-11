@@ -33,7 +33,7 @@ Bilet::Bilet(const Bilet& b) : nrLoc(b.nrLoc), nrRand(b.nrRand), dimUID(b.dimUID
 	numeClient = new char[strlen(b.numeClient) + 1];
 	strcpy_s(numeClient, strlen(b.numeClient) + 1, b.numeClient);
 	UID = new int[dimUID];
-	for (int i = 0; i < dimUID; i++)
+	for (unsigned int i = 0; i < dimUID; i++)
 		UID[i] = b.UID[i];
 }
 Bilet::~Bilet()
@@ -57,7 +57,7 @@ Bilet& Bilet::operator=(const Bilet& b)
 		numeClient = new char[strlen(b.numeClient) + 1];
 		strcpy_s(numeClient, strlen(b.numeClient) + 1, b.numeClient);
 		UID = new int[dimUID];
-		for (int i = 0; i < dimUID; i++)
+		for (unsigned int i = 0; i < dimUID; i++)
 			UID[i] = b.UID[i];
 	}
 	return *this;
@@ -89,7 +89,7 @@ int* Bilet::getUID()
 	if(UID)
 	{
 		int* copieUID = new int[dimUID];
-		for (int i = 0; i < dimUID; i++)
+		for (unsigned int i = 0; i < dimUID; i++)
 			copieUID[i] = UID[i];
 		return copieUID;
 	}
