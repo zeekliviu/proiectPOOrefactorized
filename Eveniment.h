@@ -2,6 +2,8 @@
 #include <string>
 #include "Bilet.h"
 #include "Locatie.h"
+#include "data.h"
+#include "timp.h"
 #pragma warning(disable:4996)
 using namespace std;
 #pragma once

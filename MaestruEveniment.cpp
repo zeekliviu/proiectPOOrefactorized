@@ -112,10 +112,10 @@ void MaestruEveniment::modificaEveniment(unsigned int id)
 		}
 	}
 }
-void MaestruEveniment::afiseazaEvenimente()
+int MaestruEveniment::afiseazaEvenimente()
 {
 	if (nrEvenimente)
 		for (int i = 0; i < nrEvenimente; i++)
 			cout << evenimente[i];
-	else cout << "Nu exista evenimente\n";
+	else return 0;
 }

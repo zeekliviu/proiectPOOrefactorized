@@ -14,7 +14,7 @@ int main()
 	
 	// START PROGRAM //
 	
-	/*
+	
 	MaestruEveniment m;
 	cout << "Bun venit la The Ticketing App !\n";
 	cout << "Autor: Liviu-Ioan Zecheru\n";
@@ -90,8 +90,8 @@ int main()
 			cout << "============================== OPTIUNI PENTRU ADMIN ==============================\n\n";
 		}
 		cout << "\n============================== OPTIUNI PENTRU USER ==============================\n";
-		cout << "4. Afiseaza evenimente\n";
-		cout << "5. Afiseaza numarul de bilete disponibile\n";
+		cout << "4. Afiseaza evenimente\n"; // verificat
+		cout << "5. PLACEHOLDER\n";
 		cout << "6. Cumpara bilet\n";
 		cout << "7. Verifica bilet\n";
 		cout << "============================== OPTIUNI PENTRU USER ==============================\n\n";
@@ -122,26 +122,30 @@ int main()
 			if (m.getNume() == "Admin")
 			{
 				system("cls");
-				m.afiseazaEvenimente();
-				cout << "Introduceti id-ul evenimentului pe care doriti sa-l stergeti: ";
-				int id;
-				do
+				if(m.afiseazaEvenimente())
 				{
-					while (true)
+					cout << "Introduceti id-ul evenimentului pe care doriti sa-l stergeti: ";
+					int id;
+					do
 					{
-						if (!fgets(buf, sizeof buf, stdin))
-							break;
-						if (sscanf(buf, "%d %c", &id, &cc) != 1)
+						while (true)
 						{
-							cout << "Id invalid! Mai incearca!\nId: ";
-							continue;
+							if (!fgets(buf, sizeof buf, stdin))
+								break;
+							if (sscanf(buf, "%d %c", &id, &cc) != 1)
+							{
+								cout << "Id invalid! Mai incearca!\nId: ";
+								continue;
+							}
+							break;
 						}
-						break;
-					}
-					if (id < 0)
-						cout << "Id invalid! Mai incearca!\nId: ";
-				} while (id < 0);
-				m.stergeEveniment(id);
+						if (id < 0)
+							cout << "Id invalid! Mai incearca!\nId: ";
+					} while (id < 0);
+					m.stergeEveniment(id);
+				}
+				else
+					cout << "Nu exista evenimente!\n";
 			}
 			else
 				cout << "Nu ai dreptul sa stergi evenimente!\n";
@@ -149,34 +153,44 @@ int main()
 			if (m.getNume() == "Admin")
 			{
 				system("cls");
-				m.afiseazaEvenimente();
-				cout << "Introduceti id-ul evenimentului pe care doriti sa-l modificati: ";
-				int id;
-				do
+				if(m.afiseazaEvenimente())
 				{
-					while (true)
+					cout << "Introduceti id-ul evenimentului pe care doriti sa-l modificati: ";
+					int id;
+					do
 					{
-						if (!fgets(buf, sizeof buf, stdin))
-							break;
-						if (sscanf(buf, "%d %c", &id, &cc) != 1)
+						while (true)
 						{
-							cout << "Id invalid! Mai incearca!\nId: ";
-							continue;
+							if (!fgets(buf, sizeof buf, stdin))
+								break;
+							if (sscanf(buf, "%d %c", &id, &cc) != 1)
+							{
+								cout << "Id invalid! Mai incearca!\nId: ";
+								continue;
+							}
+							break;
 						}
-						break;
-					}
-					if (id < 0)
-						cout << "Id invalid! Mai incearca!\nId: ";
-				} while (id < 0);
-				m.modificaEveniment(id);
+						if (id < 0)
+							cout << "Id invalid! Mai incearca!\nId: ";
+					} while (id < 0);
+					m.modificaEveniment(id);
+				}
+				else
+					cout << "Nu exista evenimente!\n";
 			}
 			else
 				cout << "Nu ai dreptul sa modifici evenimente!\n";
 		else if (optiune == 4)
-			system("cls"),cout<<"=========================== LISTA EVENIMENTE ==========================\n\n", m.afiseazaEvenimente(), cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
+		{
+			system("cls");
+			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
+			if (!m.afiseazaEvenimente())
+				cout << "\t\t\tNu exista evenimente!\n\n";
+			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
+		}
 		
 		else if(optiune==0)
 			system("cls"),cout << "Multumim ca ati apelat la serviciile noastre de ticketing. La revedere!\nMade with <3 by Zeek Liviu.\n";
-	} while (optiune != 0);*/
+	} while (optiune != 0);
 	return 0;
 }

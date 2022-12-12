@@ -130,17 +130,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bilet.cpp" />
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="Eveniment.cpp" />
     <ClCompile Include="Locatie.cpp" />
     <ClCompile Include="MaestruEveniment.cpp" />
     <ClCompile Include="ProiectPOO.cpp" />
+    <ClCompile Include="timp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminPassword.h" />
     <ClInclude Include="Bilet.h" />
+    <ClInclude Include="data.h" />
     <ClInclude Include="Eveniment.h" />
     <ClInclude Include="Locatie.h" />
     <ClInclude Include="MaestruEveniment.h" />
+    <ClInclude Include="timp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,5 +21,5 @@ public:
 	void adaugaEveniment();
 	void stergeEveniment(unsigned int);
 	void modificaEveniment(unsigned int);
-	void afiseazaEvenimente();
+	int afiseazaEvenimente();
 };
