@@ -1,19 +1,17 @@
 #include "MaestruEveniment.h"
 #include "AdminPassword.h"
 #pragma warning(disable:4996)
-#pragma comment(linker, "/STACK:104857600")
+#pragma warning(disable:6262)
 using namespace std;
 int main()
 {
 	// PLAYGROUND //
+
 	/*MaestruEveniment m("Admin", "admin");
 	m.adaugaEveniment();
-	m.adaugaEveniment();
-	m.afiseazaEvenimente();
 	m.afiseazaEvenimente();*/
 	
 	// START PROGRAM //
-	
 	
 	MaestruEveniment m;
 	cout << "Bun venit la The Ticketing App !\n";
@@ -91,9 +89,8 @@ int main()
 		}
 		cout << "\n============================== OPTIUNI PENTRU USER ==============================\n";
 		cout << "4. Afiseaza evenimente\n"; // verificat
-		cout << "5. PLACEHOLDER\n";
-		cout << "6. Cumpara bilet\n";
-		cout << "7. Verifica bilet\n";
+		cout << "5. Cumpara bilet\n";
+		cout << "6. Verifica bilet\n";
 		cout << "============================== OPTIUNI PENTRU USER ==============================\n\n";
 		cout << "0. Iesire\n\nAlegerea ta: ";
 		do
@@ -125,7 +122,7 @@ int main()
 				if(m.afiseazaEvenimente())
 				{
 					cout << "Introduceti id-ul evenimentului pe care doriti sa-l stergeti: ";
-					int id;
+					int id = 0;
 					do
 					{
 						while (true)
@@ -188,7 +185,40 @@ int main()
 				cout << "\t\t\tNu exista evenimente!\n\n";
 			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
 		}
-		
+		// cumpara bilet 
+		else if (optiune == 5)
+		{
+			system("cls");
+			cout << "La ce spectacol doresti sa cumperi bilete?\n";
+			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
+			if (!m.afiseazaEvenimente())
+				cout << "\t\t\tNu exista evenimente!\n\n";
+			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
+			cout << "Introduceti id-ul evenimentului: ";
+			int id;
+			do
+			{
+				while (true)
+				{
+					if (!fgets(buf, sizeof buf, stdin))
+						break;
+					if (sscanf(buf, "%d %c", &id, &cc) != 1)
+					{
+						cout << "Id invalid! Mai incearca!\nId: ";
+						continue;
+					}
+					break;
+				}
+				if (id < 0)
+					cout << "Id invalid! Mai incearca!\nId: ";
+			} while (id < 0);
+			m.cumparaBilet(id);
+		}
+		// verifica bilet
+		else if (optiune == 6)
+		{
+			system("cls");
+		}
 		else if(optiune==0)
 			system("cls"),cout << "Multumim ca ati apelat la serviciile noastre de ticketing. La revedere!\nMade with <3 by Zeek Liviu.\n";
 	} while (optiune != 0);

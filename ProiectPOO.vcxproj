@@ -136,6 +136,7 @@
     <ClCompile Include="MaestruEveniment.cpp" />
     <ClCompile Include="ProiectPOO.cpp" />
     <ClCompile Include="timp.cpp" />
+    <ClCompile Include="Zona.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminPassword.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Locatie.h" />
     <ClInclude Include="MaestruEveniment.h" />
     <ClInclude Include="timp.h" />
+    <ClInclude Include="Zona.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

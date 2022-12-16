@@ -19,7 +19,8 @@ public:
 	void setNume(const string&);
 	void setParola(const string&);
 	void adaugaEveniment();
-	void stergeEveniment(unsigned int);
-	void modificaEveniment(unsigned int);
+	void stergeEveniment(int);
+	void modificaEveniment(int);
 	int afiseazaEvenimente();
+	void cumparaBilet(int);
 };

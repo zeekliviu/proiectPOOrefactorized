@@ -2,6 +2,7 @@
 #include <string>
 #include "Bilet.h"
 #include "Locatie.h"
+#include "Zona.h"
 #include "data.h"
 #include "timp.h"
 #pragma warning(disable:4996)
@@ -14,10 +15,10 @@ private:
 	char* data;
 	char* ora;
 	static unsigned int nrEvenimente;
-	unsigned int id;
+	int id;
 	Locatie* locatie;
-	Bilet** bilete;
-	int nrBilete;
+	Zona zone[5];
+	int nrZone;
 public:
 	Eveniment();
 	Eveniment(const char*);
@@ -30,9 +31,10 @@ public:
 	char* getDenumire();
 	char* getData();
 	char* getOra();
-	unsigned int getId();
+	int getId();
 	static unsigned int getNrEvenimente();
 	Locatie* getLocatie();
-	Bilet** getBilete();
+	int getTotalLocuriCumparate();
+	void cumparaBilet();
 };
 

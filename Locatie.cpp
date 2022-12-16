@@ -3,7 +3,7 @@ Locatie::Locatie(): nrMaximLocuri(0)
 {
 	nume = "Necunoscut";
 }
-Locatie::Locatie(const string& nume, unsigned int nrMaximLocuri) : nrMaximLocuri(nrMaximLocuri)
+Locatie::Locatie(const string& nume, int nrMaximLocuri) : nrMaximLocuri(nrMaximLocuri)
 {
 	this->nume = nume;
 }
@@ -24,7 +24,7 @@ string Locatie::getNume()
 {
 	return nume;
 }
-unsigned int Locatie::getNrMaximLocuri()
+int Locatie::getNrMaximLocuri()
 {
 	return nrMaximLocuri;
 }

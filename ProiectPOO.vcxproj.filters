@@ -36,6 +36,9 @@
     <ClCompile Include="timp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Zona.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Eveniment.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="timp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Zona.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

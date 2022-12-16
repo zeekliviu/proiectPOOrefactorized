@@ -45,77 +45,94 @@ void MaestruEveniment::adaugaEveniment()
 {
 	if(nume=="Admin")
 	{
-		if (nrEvenimente)
-		{
-			Eveniment* aux = new Eveniment[nrEvenimente];
+			Eveniment* newEvenimente = new Eveniment[nrEvenimente + 1];
 			for (int i = 0; i < nrEvenimente; i++)
-				aux[i] = evenimente[i];
+				newEvenimente[i] = evenimente[i];
 			delete[] evenimente;
-			evenimente = new Eveniment[nrEvenimente + 1];
-			for (int i = 0; i < nrEvenimente; i++)
-				evenimente[i] = aux[i];
-			delete[] aux;
+			evenimente = newEvenimente;
+			cin >> evenimente[nrEvenimente];
 			nrEvenimente++;
-			cin >> evenimente[nrEvenimente - 1];
-		}
-		else
-		{
-			nrEvenimente++;
-			evenimente = new Eveniment[nrEvenimente];
-			cin >> evenimente[nrEvenimente - 1];
-		}
 	}
 }
-void MaestruEveniment::stergeEveniment(unsigned int id)
+void MaestruEveniment::stergeEveniment(int id)
 {
-	if (nume == "Admin")
-	{
-		if (nrEvenimente)
+	if (nume != "Admin") 
+		return;
+	
+
+	if (nrEvenimente == 0) 
+		return;
+	
+
+	bool ok = false;
+	for (int i = 0; i < nrEvenimente; i++) 
+		if (evenimente[i].getId() == id) 
 		{
-			bool ok = false;
-			for (int i = 0; i < nrEvenimente; i++)
-				if (evenimente[i].getId() == id)
-					ok = true;
-			if(ok)
-			{
-				Eveniment* aux = new Eveniment[nrEvenimente - 1];
-				int j = 0;
-				for (int i = 0; i < nrEvenimente; i++)
-					if (evenimente[i].getId() != id)
-						aux[j++] = evenimente[i];
-				delete[] evenimente;
-				nrEvenimente--;
-				evenimente = new Eveniment[nrEvenimente];
-				for (int i = 0; i < nrEvenimente; i++)
-					evenimente[i] = aux[i];
-				delete[] aux;
-			}
-			else cout << "Evenimentul nu exista\n";
+			ok = true;
+			break;
 		}
+	
+
+	if (!ok) 
+	{
+		cout << "Evenimentul nu exista\n";
+		return;
 	}
+
+	Eveniment* aux = new Eveniment[nrEvenimente - 1];
+	int j = 0;
+	for (int i = 0; i < nrEvenimente; i++) 
+		if (evenimente[i].getId() != id) 
+			aux[j++] = evenimente[i];
+		
+	delete[] evenimente;
+	nrEvenimente--;
+	evenimente = new Eveniment[nrEvenimente];
+	for (int i = 0; i < nrEvenimente; i++) 
+		evenimente[i] = aux[i];
+	delete[] aux;
 }
-void MaestruEveniment::modificaEveniment(unsigned int id)
+
+void MaestruEveniment::modificaEveniment(int id)
 {
-	if (nume == "Admin")
-	{
-		if (nrEvenimente)
+	if (nume != "Admin") 
+		return;
+
+	if (nrEvenimente == 0)
+		return;
+	
+	bool ok = false;
+	for (int i = 0; i < nrEvenimente; i++) 
+		if (evenimente[i].getId() == id) 
 		{
-			bool ok = false;
-			for (int i = 0; i < nrEvenimente; i++)
-				if (evenimente[i].getId() == id)
-				{
-					ok = true;
-					cin >> evenimente[i];
-				}
-			if (!ok)
-				cout << "Evenimentul nu exista\n";	
+			ok = true;
+			cin >> evenimente[i];
+			break;
 		}
-	}
+
+	if (!ok) 
+		cout << "Evenimentul nu exista\n";
 }
 int MaestruEveniment::afiseazaEvenimente()
 {
-	if (nrEvenimente)
-		for (int i = 0; i < nrEvenimente; i++)
-			cout << evenimente[i];
-	else return 0;
+	if (!nrEvenimente) 
+		return 0;
+	for (int i = 0; i < nrEvenimente; i++) 
+		cout << evenimente[i];
+	return 1;
+}
+void MaestruEveniment::cumparaBilet(int id)
+{
+	if (nrEvenimente == 0) 
+		return;
+	bool ok = false;
+	for (int i = 0; i < nrEvenimente; i++) 
+		if (evenimente[i].getId() == id) 
+		{
+			ok = true;
+			evenimente[i].cumparaBilet();
+			break;
+		}
+	if (!ok) 
+		cout << "Evenimentul nu exista\n";
 }

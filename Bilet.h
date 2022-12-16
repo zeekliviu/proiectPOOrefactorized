@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 using namespace std;
 class Bilet
 {
@@ -17,11 +18,14 @@ public:
 	Bilet(const Bilet&);
 	~Bilet();
 	Bilet& operator=(const Bilet&);
+	friend ostream& operator<<(ostream&, const Bilet&);
+	friend istream& operator>>(istream&, Bilet&);
 	char* getNumeClient();
 	int getId();
 	int getNrLoc();
 	int getNrRand();
 	int* getUID();
 	int getDimUID();
+	void setNumeClient(const char*);
 };
 
