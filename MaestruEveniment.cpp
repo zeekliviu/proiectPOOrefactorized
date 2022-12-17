@@ -28,6 +28,35 @@ MaestruEveniment& MaestruEveniment::operator=(const MaestruEveniment& m)
 	}
 	return *this;
 }
+ostream& operator<<(ostream& out, const MaestruEveniment& m)
+{
+	out << m.nume << endl;
+	return out;
+}
+istream& operator>>(istream& in, MaestruEveniment& m)
+{
+	cout << "Nume: ";
+	in >> m.nume;
+	cout << "Parola: ";
+	in >> m.parola;
+	cout << "Nr. evenimente: ";
+	in >> m.nrEvenimente;
+	m.evenimente = new Eveniment[m.nrEvenimente];
+	for (int i = 0; i < m.nrEvenimente; i++)
+	{
+		cout << "Eveniment " << i + 1 << endl;
+		in >> m.evenimente[i];
+	}
+	return in;
+}
+bool MaestruEveniment::operator>(const MaestruEveniment& m)
+{
+	return nume > m.nume;
+}
+bool MaestruEveniment::operator>=(const MaestruEveniment& m)
+{
+	return parola >= m.parola;
+}
 string MaestruEveniment::getNume()
 {
 	return nume;

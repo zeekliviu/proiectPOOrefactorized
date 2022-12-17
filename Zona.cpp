@@ -98,25 +98,6 @@ ostream& operator<<(ostream& out, const Zona& z)
 istream& operator>>(istream& in, Zona& z)
 {
 	char buf[UCHAR_MAX], cc;
-	/*cout << "Nume zona: ";
-	getline(in, z.nume);
-	cout << "Numar locuri: ";
-	do
-	{
-		while (true)
-		{
-			if (!fgets(buf, sizeof buf, stdin))
-				break;
-			if (sscanf(buf, "%d %c", &z.nrLocuri, &cc) != 1)
-			{
-				cout << "Numar invalid! Mai incearca!\nIntrodu numarul de locuri: ";
-				continue;
-			}
-			break;
-		}
-		if (z.nrLocuri <= 0)
-			cout << "Numar invalid! Mai incearca!\nIntrodu numarul de locuri: ";
-	} while (z.nrLocuri <= 0);*/
 	cout << "Locurile din zona " << z.nume << " pot fi impartite dupa cum urmeaza : \n";
 	combinatii_posibile(z.nrLocuri);
 	cout << "Introduceti numarul de randuri: ";
@@ -142,6 +123,14 @@ istream& operator>>(istream& in, Zona& z)
 		delete[] z.bilete;
 	z.bilete = new Bilet[z.nrMaximRanduri * z.nrMaximLocuri];
 	return in;
+}
+int Zona::operator*(const Zona& z)
+{
+	return nrLocuri * z.nrLocuri;
+}
+float Zona::operator/(const Zona& z)
+{
+	return (float)nrLocuri / (float)z.nrLocuri * 100;
 }
 void Zona::cumparaBilet()
 {

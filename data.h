@@ -20,9 +20,9 @@ public:
 	data& operator=(const data&);
 	friend ostream& operator<<(ostream&, data);
 	friend istream& operator>>(istream&, data&);
-	data& operator+(const data&);
-	data operator--();
-	data operator--(int);
+	data& operator+(const data&); // ca sa adunam doua date calendaristice
+	data operator--(); // ca sa scadem o zi dintr-o data calendaristica pre-incrementare
+	data operator--(int); // ca sa scadem o zi dintr-o data calendaristica post-incrementare
 	int getZi();
 	int getLuna();
 	int getAn();

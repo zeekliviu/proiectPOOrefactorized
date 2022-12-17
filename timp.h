@@ -14,8 +14,8 @@ public:
 	timp& operator=(const timp&);
 	friend ostream& operator<<(ostream&, timp);
 	friend istream& operator>>(istream&, timp&);
-	timp& operator-(const timp&);
-	bool operator<=(const timp&);
+	timp& operator-(const timp&); // ca sa scadem 2 timpi
+	bool operator<=(const timp&); // ca sa verificam daca un timp este mai mic sau egal cu alt timp
 	bool getFlag();
 	bool verificaOra();
 	bool verificaMinut();

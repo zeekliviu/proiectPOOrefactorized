@@ -381,6 +381,24 @@ istream& operator>>(istream& in, Eveniment& e)
 	}
 	return in;
 }
+void Eveniment::operator[](int i)
+{
+	if (i >= 0 && i < nrZone)
+		cout << zone[i];
+	else
+		cout << "Index invalid!\n";
+}
+Eveniment Eveniment::operator++()
+{
+	nrEvenimente++;
+	return *this;
+}
+Eveniment Eveniment::operator++(int)
+{
+	Eveniment aux = *this;
+	nrEvenimente++;
+	return aux;
+}
 char* Eveniment::getDenumire()
 {
 	if (denumire)

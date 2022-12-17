@@ -15,6 +15,10 @@ public:
 	MaestruEveniment(const MaestruEveniment&);
 	~MaestruEveniment();
 	MaestruEveniment& operator=(const MaestruEveniment&);
+	friend ostream& operator<<(ostream&, const MaestruEveniment&);
+	friend istream& operator>>(istream&, MaestruEveniment&);
+	bool operator>(const MaestruEveniment&); // verifica daca numele obiectului curent este mai mare decat al celui primit ca parametru
+	bool operator>=(const MaestruEveniment&); // verifica daca lungimea parolei este mai mare sau egala cu parola obiectului primit ca parametru (in caz de egalitate, este posibil sa vorbim despre acelasi user)
 	string getNume();
 	void setNume(const string&);
 	void setParola(const string&);

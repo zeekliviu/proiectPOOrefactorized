@@ -28,6 +28,9 @@ public:
 	Eveniment& operator=(const Eveniment&);
 	friend ostream& operator<<(ostream&, const Eveniment&);
 	friend istream& operator>>(istream&, Eveniment&);
+	void operator[](int); // ca sa afisam o zona dupa index
+	Eveniment operator++(); // ca sa crestem numarul de evenimente cu 1 pre-incrementare
+	Eveniment operator++(int); // ca sa crestem numarul de evenimente cu 1 post-incrementare
 	char* getDenumire();
 	char* getData();
 	char* getOra();

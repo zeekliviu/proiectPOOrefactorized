@@ -25,6 +25,8 @@ public:
 	void setNrLocuri(int);
 	friend ostream& operator<<(ostream&, const Zona&);
 	friend istream& operator>>(istream&, Zona&);
+	int operator*(const Zona&); // daca vrem sa determinam numarul de locuri din comasarea a doua zone
+	float operator/(const Zona&); // daca vrem sa determinam cat la suta din locurile obiectului curent reprezinta locurile din obiectul primit ca parametru
 	void cumparaBilet();
 	void verificaBilet();
 };

@@ -20,6 +20,8 @@ public:
 	Bilet& operator=(const Bilet&);
 	friend ostream& operator<<(ostream&, const Bilet&);
 	friend istream& operator>>(istream&, Bilet&);
+	bool operator==(const Bilet&); // pentru a verifica daca 2 bilete apartin aceluiasi client
+	bool operator<(const Bilet&); // pentru a verifica daca dimensiunea UID-ului unui bilet este mai mica decat a celui de-al doilea (daca este mai mica, inseamna ca numele clientului curent este mai mic decat al celui primit ca parametru)
 	char* getNumeClient();
 	int getId();
 	int getNrLoc();

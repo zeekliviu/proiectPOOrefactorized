@@ -101,6 +101,14 @@ istream& operator>>(istream& in, Bilet& b)
 		b.UID[i++] = b.numeClient[j];
 	return in;
 }
+bool Bilet::operator==(const Bilet& b)
+{
+	return (!strcmp(numeClient, b.numeClient));
+}
+bool Bilet::operator<(const Bilet& b)
+{
+	return dimUID < b.dimUID;
+}
 char* Bilet::getNumeClient()
 {
 	if (numeClient)
@@ -160,10 +168,12 @@ void Bilet::setNumeClient(const char* numeClient)
 }
 void Bilet::setNumarLoc(unsigned int nrLoc)
 {
+	if(nrLoc)
 	this->nrLoc = nrLoc;
 }
 void Bilet::setNumarRand(unsigned int nrRand)
 {
+	if(nrRand)
 	this->nrRand = nrRand;
 }
 bool Bilet::verificaBilet(string s)
