@@ -32,9 +32,12 @@ public:
 	char* getData();
 	char* getOra();
 	int getId();
+	Zona* getZone();
+	int getNrZone();
 	static unsigned int getNrEvenimente();
 	Locatie* getLocatie();
 	int getTotalLocuriCumparate();
 	void cumparaBilet();
+	void verificaBilet();
 };
 

@@ -9,6 +9,8 @@ class Zona
 private:
 	string nume;
 	int nrLocuri;
+	unsigned int nrMaximRanduri;
+	unsigned int nrMaximLocuri;
 	Bilet* bilete;
 	int nrBilete;
 public:
@@ -24,5 +26,6 @@ public:
 	friend ostream& operator<<(ostream&, const Zona&);
 	friend istream& operator>>(istream&, Zona&);
 	void cumparaBilet();
+	void verificaBilet();
 };
 

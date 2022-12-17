@@ -158,3 +158,22 @@ void Bilet::setNumeClient(const char* numeClient)
 	for (int j = 0; j < strlen(numeClient); j++)
 		UID[i++] = numeClient[j];
 }
+void Bilet::setNumarLoc(unsigned int nrLoc)
+{
+	this->nrLoc = nrLoc;
+}
+void Bilet::setNumarRand(unsigned int nrRand)
+{
+	this->nrRand = nrRand;
+}
+bool Bilet::verificaBilet(string s)
+{
+	string UIDString;
+	for (unsigned int i = 0; i < dimUID; i++)
+		UIDString += to_string(UID[i]);
+	return UIDString == s;
+}
+void Bilet::setNrBilete(int nrBilete)
+{
+	Bilet::nrBilete = nrBilete;
+}

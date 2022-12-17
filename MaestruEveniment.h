@@ -23,4 +23,5 @@ public:
 	void modificaEveniment(int);
 	int afiseazaEvenimente();
 	void cumparaBilet(int);
+	void verificaBilet(int);
 };

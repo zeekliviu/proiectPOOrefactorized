@@ -51,6 +51,8 @@ void MaestruEveniment::adaugaEveniment()
 			delete[] evenimente;
 			evenimente = newEvenimente;
 			cin >> evenimente[nrEvenimente];
+			for (int i = 0; i < evenimente[nrEvenimente].getNrZone(); i++)
+				cin >> evenimente[nrEvenimente].getZone()[i];
 			nrEvenimente++;
 	}
 }
@@ -134,5 +136,20 @@ void MaestruEveniment::cumparaBilet(int id)
 			break;
 		}
 	if (!ok) 
+		cout << "Evenimentul nu exista\n";
+}
+void MaestruEveniment::verificaBilet(int id)
+{
+	if (nrEvenimente == 0)
+		return;
+	bool ok = false;
+	for (int i = 0; i < nrEvenimente; i++)
+		if (evenimente[i].getId() == id)
+		{
+			ok = true;
+			evenimente[i].verificaBilet();
+			break;
+		}
+	if (!ok)
 		cout << "Evenimentul nu exista\n";
 }

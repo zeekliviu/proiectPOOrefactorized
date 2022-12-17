@@ -7,9 +7,8 @@ int main()
 {
 	// PLAYGROUND //
 
-	/*MaestruEveniment m("Admin", "admin");
-	m.adaugaEveniment();
-	m.afiseazaEvenimente();*/
+	/*Bilet* bilet = new Bilet[10];
+	cout << (bilet[0].getUID() == nullptr);*/
 	
 	// START PROGRAM //
 	
@@ -185,11 +184,10 @@ int main()
 				cout << "\t\t\tNu exista evenimente!\n\n";
 			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
 		}
-		// cumpara bilet 
 		else if (optiune == 5)
 		{
 			system("cls");
-			cout << "La ce spectacol doresti sa cumperi bilete?\n";
+			cout << "La ce spectacol doresti sa cumperi bilet?\n";
 			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
 			if (!m.afiseazaEvenimente())
 				cout << "\t\t\tNu exista evenimente!\n\n";
@@ -214,10 +212,33 @@ int main()
 			} while (id < 0);
 			m.cumparaBilet(id);
 		}
-		// verifica bilet
 		else if (optiune == 6)
 		{
 			system("cls");
+			cout << "La ce spectacol doresti sa verifici biletul?\n";
+			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
+			if (!m.afiseazaEvenimente())
+				cout << "\t\t\tNu exista evenimente!\n\n";
+			cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
+			cout << "Introduceti id-ul evenimentului: ";
+			int id;
+			do
+			{
+				while (true)
+				{
+					if (!fgets(buf, sizeof buf, stdin))
+						break;
+					if (sscanf(buf, "%d %c", &id, &cc) != 1)
+					{
+						cout << "Id invalid! Mai incearca!\nId: ";
+						continue;
+					}
+					break;
+				}
+				if (id < 0)
+					cout << "Id invalid! Mai incearca!\nId: ";
+			} while (id < 0);
+			m.verificaBilet(id);
 		}
 		else if(optiune==0)
 			system("cls"),cout << "Multumim ca ati apelat la serviciile noastre de ticketing. La revedere!\nMade with <3 by Zeek Liviu.\n";

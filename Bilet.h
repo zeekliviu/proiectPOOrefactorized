@@ -27,5 +27,9 @@ public:
 	int* getUID();
 	int getDimUID();
 	void setNumeClient(const char*);
+	void setNumarLoc(unsigned int);
+	void setNumarRand(unsigned int);
+	bool verificaBilet(string);
+	void setNrBilete(int);
 };
 
