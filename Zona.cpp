@@ -260,6 +260,8 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 							system("Python.exe");
 							cout << "Python a fost sters cu succes!\n";
 						}
+						cin.ignore();
+						cin.clear();
 					}
 				}
 				else

@@ -46,6 +46,7 @@ pdf.line(127, 0, 127, 127)
 ######### adaugare logo #########
 
 pdf.image("logo.png", w=60, h=60, x=75, y=-10)
+pdf.image("zeth.png", x=-10, y=93, w=60, h=30)
 
 ####################################
 
