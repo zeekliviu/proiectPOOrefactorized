@@ -5,10 +5,7 @@
 using namespace std;
 int main()
 {
-	// PLAYGROUND //
-
-	/*Bilet* bilet = new Bilet[10];
-	cout << (bilet[0].getUID() == nullptr);*/
+	// PLAYGROUND //	
 	
 	// START PROGRAM //
 	
@@ -81,13 +78,13 @@ int main()
 		if(m.getNume()=="Admin")
 		{
 			cout << "\n============================== OPTIUNI PENTRU ADMIN ==============================\n";
-			cout << "1. Adauga eveniment\n"; // verificat - dar se schimba id-urile evenimentelor din vectorul de evenimente
-			cout << "2. Sterge eveniment\n"; // verificat - dar se schimba id-urile evenimentelor din vectorul de evenimente
-			cout << "3. Modifica eveniment\n"; // verificat
+			cout << "1. Adauga eveniment\n"; 
+			cout << "2. Sterge eveniment\n"; 
+			cout << "3. Modifica eveniment\n"; 
 			cout << "============================== OPTIUNI PENTRU ADMIN ==============================\n\n";
 		}
 		cout << "\n============================== OPTIUNI PENTRU USER ==============================\n";
-		cout << "4. Afiseaza evenimente\n"; // verificat
+		cout << "4. Afiseaza evenimente\n"; 
 		cout << "5. Cumpara bilet\n";
 		cout << "6. Verifica bilet\n";
 		cout << "============================== OPTIUNI PENTRU USER ==============================\n\n";
@@ -100,7 +97,7 @@ int main()
 					break;
 				if (sscanf(buf, "%d %c", &optiune, &cc) != 1)
 				{
-					system("cls");
+					//system("cls");
 					cout << "Optiune invalida! Mai incearca!\nAlegerea ta: ";
 					continue;
 				}

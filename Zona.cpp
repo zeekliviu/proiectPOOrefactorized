@@ -1,4 +1,6 @@
 #include "Zona.h"
+#include <regex>
+#include <climits>
 void combinatii_posibile(int n)
 {
 	if(n==1)
@@ -8,6 +10,18 @@ void combinatii_posibile(int n)
 			if (i != (n / i))
 			cout << i << " rand(uri) si " << n / i << " locuri pe rand sau invers, adica " << n / i << " randuri si " << i << " loc(uri) pe rand.\n";
 			else cout << i << " randuri si " << n / i << " locuri pe rand.\n";
+}
+bool verifica_mail(string email)
+{
+	regex pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+	return regex_match(email, pattern);
+}
+string converteste_intArr_in_string(int* arr, unsigned int n)
+{
+	string s;
+	for (unsigned int i = 0; i < n; i++)
+		s += to_string(arr[i]);
+	return s;
 }
 Zona::Zona()
 {
@@ -31,7 +45,7 @@ Zona::Zona(const Zona& z)
 {
 	nume = z.nume;
 	nrLocuri = z.nrLocuri;
-	bilete = new Bilet[z.nrBilete];
+	bilete = new Bilet[z.nrMaximLocuri*z.nrMaximRanduri];
 	for (int i = 0; i < z.nrBilete; i++)
 		bilete[i] = z.bilete[i];
 	nrBilete = z.nrBilete;
@@ -44,7 +58,7 @@ Zona& Zona::operator=(const Zona& z)
 	nrLocuri = z.nrLocuri;
 	if(bilete)
 		delete[] bilete;
-	bilete = new Bilet[z.nrBilete];
+	bilete = new Bilet[z.nrMaximLocuri * z.nrMaximRanduri];
 	for (int i = 0; i < z.nrBilete; i++)
 		bilete[i] = z.bilete[i];
 	nrBilete = z.nrBilete;
@@ -79,17 +93,17 @@ ostream& operator<<(ostream& out, const Zona& z)
 	out << "\t\tDispuse pe randuri si locuri dupa cum urmeaza: " << endl;
 	for (unsigned int i = 0; i < z.nrMaximRanduri; i++)
 	{
-		cout << "\n\t\tRand " << i + 1 << " ";
+		out << "\n\t\tRand " << i + 1 << " ";
 		for (unsigned int j = 0; j < z.nrMaximLocuri; j++)
 		{
 			if (z.bilete[i * z.nrMaximLocuri + j].getUID() != nullptr)
-				cout << "|_"<<char(1)<<"_|";
-			else cout << "|___|";
+				out << "|_"<<char(1)<<"_|";
+			else out << "|___|";
 		}
-		cout << "\n\t\t\t ";
+		out << "\n\t\t\t ";
 		for (unsigned int j = 0; j < z.nrMaximLocuri; j++)
-			cout << j + 1 << "    ";
-		cout << "\n";
+			out << j + 1 << "    ";
+		out << "\n";
 	}
 					
 	out << "\n\t\tUnde "<<char(1)<<" reprezinta loc ocupat.\n"<<"\t\tNumar bilete disponibile : " << z.nrLocuri - z.nrBilete << endl;
@@ -132,8 +146,20 @@ float Zona::operator/(const Zona& z)
 {
 	return (float)nrLocuri / (float)z.nrLocuri * 100;
 }
-void Zona::cumparaBilet()
+void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* ora, string denumireLoc)
 {
+	////////// ARGUMENTE DE PASAT LA MAIN.PY //////////
+	// denumireEv - denumirea evenimentului
+	// data - data evenimentului
+	// ora - ora evenimentului
+	// denumireLoc - denumirea locatiei
+	// nume - numele zonei
+	// rand - randul biletului
+	// loc - locul biletului
+	// bilete[(rand-1) * nrMaximLocuri + (loc-1)].getUID() - UID-ul biletului (trebuie convertit de la int* la string)
+	// sender_mail - adresa de email a expeditorului (events@zethenterprises.com)
+	// sender_pass - parola expeditorului (Eventszethenterprisebaza0701?!)
+	// email - adresa de email a destinatarului (email-ul clientului)
 	if (nrBilete == nrLocuri)
 	{
 		cout << "Nu mai sunt locuri disponibile in zona " << nume << "!\n";
@@ -186,12 +212,65 @@ void Zona::cumparaBilet()
 			if (bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID() == nullptr)
 			{
 				bilete[(rand - 1) * nrMaximLocuri + loc - 1] = Bilet(numeclient.c_str(), rand-1, loc-1);
-				cout << "Bilet cumparat cu succes! Noteaza-ti UID-ul undeva, vei avea nevoie de el pentru a-ti verifica biletul!\n";
-				int* UID = bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID();
-				unsigned dimUID = bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID();
-				cout << "UID: ";
-				for (unsigned int i = 0; i < dimUID; i++)
-					cout << UID[i];
+				cout << "Bilet cumparat cu succes! Vrei sa ti-l trimitem pe mail? (Y/N): ";
+				char c;
+				cin >> c;
+				if (c == 'Y' || c == 'y')
+				{
+					cout << "Introdu adresa de mail: ";
+					string mail;
+					cin >> mail;
+					while (!verifica_mail(mail))
+					{
+						cout << "Adresa de mail invalida! Mai incearca!\nIntrodu adresa de mail: ";
+						cin >> mail;
+					}
+					cout << "Ai Python instalat pe dispozitivul tau? (Y/N): ";
+					cin >> c;
+					string sender_mail = "events@zethenterprises.com";
+					string sender_pass = "Eventszethenterprisebaza0701?!";
+					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + nume + "\" \"" + to_string(rand) + "\" \"" + to_string(loc) + "\" \"" + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + "\" \"" + sender_mail + "\" \"" + sender_pass + "\" \"" + mail + "\"";
+					if (c == 'Y' || c == 'y')
+					{
+						cout << "Instalare pachete necesare executarii script-ului...\n";
+						system("py -m pip install -r req.txt");
+						cout << "\nPachetele au fost instalate cu succes.\n";
+						cout << "Executare main.py...\n";
+						system(cmd.c_str());
+						cout << "\nScriptul a fost executat. Verifica-ti mail-ul!";
+						cin.ignore();
+						cin.clear();
+					}
+					else
+					{
+						cout << "Instalare Python...\nAstept permisiunea de a instala Python...Uita-te in taskbar!\n";
+						system("Python.exe /quiet PrependPath=1");
+						cout << "Instalarea a fost efectuata cu succes!\n";
+						cout << "Instalare pachete necesare executarii script-ului...\n";
+						system("py -m pip install -r req.txt");
+						cout << "\nPachetele au fost instalate cu succes.\n";
+						cout << "Executare main.py...\n";
+						system(cmd.c_str());
+						cout << "Scriptul a fost executat. Verifica-ti mail-ul!\n";
+						cout << "Vrei sa stergi Python de pe dispozitivul tau? Recomand sa n-o faci, e un limbaj de programare super! :) (Y/N): ";
+						cin >> c;
+						if (c == 'Y' || c == 'y')
+						{
+							cout << "Stergere Python... Urmeaza pasii din interfata grafica pentru a dezinstala Python!\n";
+							system("Python.exe");
+							cout << "Python a fost sters cu succes!\n";
+						}
+					}
+				}
+				else
+				{
+					cout << "Bilet cumparat cu succes! Noteaza-ti UID-ul undeva, vei avea nevoie de el pentru a-ti verifica biletul!\n";
+					int* UID = bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID();
+					unsigned dimUID = bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID();
+					cout << "UID: ";
+					for (unsigned int i = 0; i < dimUID; i++)
+						cout << UID[i];
+				}
 				nrBilete++;
 			}
 			else

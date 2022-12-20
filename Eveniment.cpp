@@ -2,8 +2,7 @@
 unsigned int Eveniment::nrEvenimente = 0;
 Eveniment::Eveniment()
 {
-	nrEvenimente++;
-	id = nrEvenimente;
+	id = ++nrEvenimente;
 	denumire = new char[strlen("Necunoscut") + 1];
 	strcpy_s(denumire, strlen("Necunoscut") + 1, "Necunoscut");
 	data = new char[strlen("TBA") + 1];
@@ -58,8 +57,13 @@ Eveniment::~Eveniment()
 {
 	if (denumire)
 		delete[] denumire;
+	if (data)
+		delete[] data;
+	if (ora)
+		delete[] ora;
 	if (locatie)
 		delete locatie;
+	nrEvenimente--;
 }
 Eveniment& Eveniment::operator=(const Eveniment& e)
 {
@@ -70,6 +74,14 @@ Eveniment& Eveniment::operator=(const Eveniment& e)
 			delete[] denumire;
 		denumire = new char[strlen(e.denumire) + 1];
 		strcpy_s(denumire, strlen(e.denumire) + 1, e.denumire);
+		if (data)
+			delete[] data;
+		data = new char[strlen(e.data) + 1];
+		strcpy_s(data, strlen(e.data) + 1, e.data);
+		if (ora)
+			delete[] ora;
+		ora = new char[strlen(e.ora) + 1];
+		strcpy_s(ora, strlen(e.ora) + 1, e.ora);
 		if (locatie)
 			delete locatie;
 		locatie = new Locatie(*e.locatie);
@@ -90,7 +102,7 @@ ostream& operator<<(ostream& out, const Eveniment& e)
 	out << "=========== Denumire zone & locuri pe zona: "<<endl;
 	out << "\t\t============ ZONE ============\n" << endl;
 	if (e.nrZone == 0)
-		out << "\t\tNu exista zone disponibile." << endl;
+		out << "\t\tNu exista zone disponibile.\n" << endl;
 	else for (int i = 0; i < e.nrZone; i++)
 	{
 		out << "\t\tID: " << i+1 << endl;
@@ -471,34 +483,39 @@ void Eveniment::cumparaBilet()
 		char buf[UCHAR_MAX], cc;
 		cout << "\t\t============ ZONE ============\n" << endl;
 		if (nrZone == 0)
-			cout << "\t\tNu exista zone disponibile." << endl;
-		else for (int i = 0; i < nrZone; i++)
-		{
-			cout << "\t\tID: " << i + 1 << endl;
-			cout << zone[i] << endl;
-		}
-		cout << "Zona la care vrei biletul: ";
-		int zona = 0;
-		do
-		{
-			while (true)
-			{
-				if (!fgets(buf, sizeof buf, stdin))
-					break;
-				if (sscanf(buf, "%d %c", &zona, &cc) != 1)
-				{
-					cout << "Numar invalid! Mai incearca!\nIntrodu numarul zonei: ";
-					continue;
-				}
-				break;
-			}
-			if (zona-1 < 0 || zona-1 >= nrZone)
-				cout << "Numar invalid! Mai incearca!\nIntrodu numarul zonei: ";
-		} while (zona-1 < 0 || zona-1 >= nrZone);
-		if (zone[zona - 1].getNrLocuri() == zone[zona - 1].getNrBilete())
-			cout << "Nu mai sunt locuri disponibile in zona " << zone[zona - 1].getNume() << "!\n";
+			cout << "\t\tNu exista zone disponibile." << endl,
+		cout << "\t\t==============================\n" << endl;
 		else
-			zone[zona - 1].cumparaBilet();
+		{
+			for (int i = 0; i < nrZone; i++)
+			{
+				cout << "\t\tID: " << i + 1 << endl;
+				cout << zone[i] << endl;
+			}
+			cout << "\t\t==============================\n" << endl;
+			cout << "Zona la care vrei biletul: ";
+			int zona = 0;
+			do
+			{
+				while (true)
+				{
+					if (!fgets(buf, sizeof buf, stdin))
+						break;
+					if (sscanf(buf, "%d %c", &zona, &cc) != 1)
+					{
+						cout << "Numar invalid! Mai incearca!\nIntrodu numarul zonei: ";
+						continue;
+					}
+					break;
+				}
+				if (zona - 1 < 0 || zona - 1 >= nrZone)
+					cout << "Numar invalid! Mai incearca!\nIntrodu numarul zonei: ";
+			} while (zona - 1 < 0 || zona - 1 >= nrZone);
+			if (zone[zona - 1].getNrLocuri() == zone[zona - 1].getNrBilete())
+				cout << "Nu mai sunt locuri disponibile in zona " << zone[zona - 1].getNume() << "!\n";
+			else
+				zone[zona - 1].cumparaBilet(denumire, data, ora, locatie->getNume());
+		}
 	}
 }
 void Eveniment::verificaBilet()

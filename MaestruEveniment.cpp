@@ -74,7 +74,27 @@ void MaestruEveniment::adaugaEveniment()
 {
 	if(nume=="Admin")
 	{
-			Eveniment* newEvenimente = new Eveniment[nrEvenimente + 1];
+		if (!evenimente)
+		{
+			evenimente = new Eveniment[1];
+			cin >> evenimente[0];
+			for (int i = 0; i < evenimente[0].getNrZone(); i++)
+				cin >> evenimente[0].getZone()[i];
+			nrEvenimente++;
+		}
+		else
+		{
+			Eveniment* aux = new Eveniment[nrEvenimente + 1];
+			for (int i = 0; i < nrEvenimente; i++)
+				aux[i] = evenimente[i];
+			delete[] evenimente;
+			evenimente = aux;
+			cin >> evenimente[nrEvenimente];
+			for (int i = 0; i < evenimente[nrEvenimente].getNrZone(); i++)
+				cin >> evenimente[nrEvenimente].getZone()[i];
+			nrEvenimente++;
+		}
+			/*Eveniment* newEvenimente = new Eveniment[nrEvenimente + 1];
 			for (int i = 0; i < nrEvenimente; i++)
 				newEvenimente[i] = evenimente[i];
 			delete[] evenimente;
@@ -82,7 +102,7 @@ void MaestruEveniment::adaugaEveniment()
 			cin >> evenimente[nrEvenimente];
 			for (int i = 0; i < evenimente[nrEvenimente].getNrZone(); i++)
 				cin >> evenimente[nrEvenimente].getZone()[i];
-			nrEvenimente++;
+			nrEvenimente++;*/
 	}
 }
 void MaestruEveniment::stergeEveniment(int id)

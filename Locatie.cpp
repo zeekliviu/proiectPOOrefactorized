@@ -32,7 +32,7 @@ istream& operator>>(istream& in, Locatie& l)
 	getline(in, l.nume);
 	return in;
 }
-explicit Locatie::operator string()
+Locatie::operator string()
 {
 	return nume;
 }

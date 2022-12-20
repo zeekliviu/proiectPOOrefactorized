@@ -27,7 +27,7 @@ public:
 	friend istream& operator>>(istream&, Zona&);
 	int operator*(const Zona&); // daca vrem sa determinam numarul de locuri din comasarea a doua zone
 	float operator/(const Zona&); // daca vrem sa determinam cat la suta din locurile obiectului curent reprezinta locurile din obiectul primit ca parametru
-	void cumparaBilet();
+	void cumparaBilet(const char*, const char*, const char*, string);
 	void verificaBilet();
 };
 

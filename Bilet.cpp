@@ -51,6 +51,7 @@ Bilet& Bilet::operator=(const Bilet& b)
 			delete[] numeClient;
 		if (UID)
 			delete[] UID;
+		id = b.id;
 		nrLoc = b.nrLoc;
 		nrRand = b.nrRand;
 		dimUID = b.dimUID;
