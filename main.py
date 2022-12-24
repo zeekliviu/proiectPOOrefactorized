@@ -6,11 +6,14 @@ from datetime import datetime
 import locale
 import qrcode # necesita install
 import ssl, smtplib # necesita install
+import cryptocode as cc # necesita install
 
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.header import Header
+from email.utils import formataddr
 #######################################
 
 ######### Setting Locale ##############
@@ -46,7 +49,7 @@ pdf.line(127, 0, 127, 127)
 ######### adaugare logo #########
 
 pdf.image("logo.png", w=60, h=60, x=75, y=-10)
-pdf.image("zeth.png", x=-10, y=93, w=60, h=30)
+pdf.image("zeth.png", x=-10, y=94.5, w=60, h=30)
 
 ####################################
 
@@ -101,14 +104,14 @@ pdf.output(f"bilet_{UID}.pdf")
 
 subject = "🎫 Biletul tău la evenimentul " + EVENIMENT
 body = "Bună ziua, \n\nAtașat găsiți biletul dumneavoastră la evenimentul " + EVENIMENT + " din data de " + DATA_DT +\
-       " la ora " + ORA + ".\n\nVă mulțumim pentru că ați ales să participați la evenimentul nostru.\n\nCu stimă," \
-                          "\nEchipa The Ticketing App"
-sender_email = sys.argv[9]
-password = sys.argv[10]
+       " la ora " + ORA + ".\n\nVă mulțumim pentru că ați ales să participați la evenimentul nostru!\n\nCu stimă," \
+                          "\nEchipa Zeth Tickets"
+sender_email = cc.decrypt(sys.argv[9], sys.argv[12])
+password = cc.decrypt(sys.argv[10], sys.argv[12])
 receiver_email = sys.argv[11]
 
 message = MIMEMultipart()
-message["From"] = sender_email
+message["From"] = formataddr((str(Header('Zeth Tickets', 'utf-8')), sender_email))
 message["To"] = receiver_email
 message["Subject"] = subject
 message.attach(MIMEText(body, "plain"))

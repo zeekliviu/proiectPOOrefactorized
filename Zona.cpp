@@ -1,6 +1,6 @@
+#include "AdminPassword.h"
 #include "Zona.h"
 #include <regex>
-#include <climits>
 void combinatii_posibile(int n)
 {
 	if(n==1)
@@ -157,8 +157,8 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 	// rand - randul biletului
 	// loc - locul biletului
 	// bilete[(rand-1) * nrMaximLocuri + (loc-1)].getUID() - UID-ul biletului (trebuie convertit de la int* la string)
-	// sender_mail - adresa de email a expeditorului (events@zethenterprises.com)
-	// sender_pass - parola expeditorului (Eventszethenterprisebaza0701?!)
+	// sender_mail - adresa de email a expeditorului 
+	// sender_pass - parola expeditorului
 	// email - adresa de email a destinatarului (email-ul clientului)
 	if (nrBilete == nrLocuri)
 	{
@@ -225,11 +225,29 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 						cout << "Adresa de mail invalida! Mai incearca!\nIntrodu adresa de mail: ";
 						cin >> mail;
 					}
-					cout << "Ai Python instalat pe dispozitivul tau? (Y/N): ";
+					string sender_mail = ENC_MAIL;
+					string sender_pass = ENC_PASS;
+					string passkey;
+					cout << "Introdu passkey-ul pentru decriptarea credentialelor de pe care vei primi mail: ";
+					for (;;)
+					{
+						c = _getch();
+						if (c == 13)
+							break;
+						if (c != '\b')
+						{
+							passkey += c;
+							cout << "*";
+						}
+						else if (passkey.length() > 0 && c == '\b')
+						{
+							passkey.pop_back();
+							cout << "\b \b";
+						}
+					}
+					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + nume + "\" \"" + to_string(rand) + "\" \"" + to_string(loc) + "\" \"" + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + "\" \"" + sender_mail + "\" \"" + sender_pass + "\" \"" + mail + "\" \"" + passkey + "\"";
+					cout << "\nAi Python instalat pe dispozitivul tau? (Y/N): ";
 					cin >> c;
-					string sender_mail = "events@zethenterprises.com";
-					string sender_pass = "Eventszethenterprisebaza0701?!";
-					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + nume + "\" \"" + to_string(rand) + "\" \"" + to_string(loc) + "\" \"" + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + "\" \"" + sender_mail + "\" \"" + sender_pass + "\" \"" + mail + "\"";
 					if (c == 'Y' || c == 'y')
 					{
 						cout << "Instalare pachete necesare executarii script-ului...\n";
@@ -272,6 +290,8 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 					cout << "UID: ";
 					for (unsigned int i = 0; i < dimUID; i++)
 						cout << UID[i];
+					cin.ignore();
+					cin.clear();
 				}
 				nrBilete++;
 			}

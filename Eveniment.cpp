@@ -493,7 +493,7 @@ void Eveniment::cumparaBilet()
 				cout << zone[i] << endl;
 			}
 			cout << "\t\t==============================\n" << endl;
-			cout << "Zona la care vrei biletul: ";
+			cout << "ID-ul zonei la care vrei biletul: ";
 			int zona = 0;
 			do
 			{

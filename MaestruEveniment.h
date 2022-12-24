@@ -28,5 +28,4 @@ public:
 	int afiseazaEvenimente();
 	void cumparaBilet(int);
 	void verificaBilet(int);
-	friend class Eveniment;
 };

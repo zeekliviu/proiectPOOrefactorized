@@ -94,15 +94,6 @@ void MaestruEveniment::adaugaEveniment()
 				cin >> evenimente[nrEvenimente].getZone()[i];
 			nrEvenimente++;
 		}
-			/*Eveniment* newEvenimente = new Eveniment[nrEvenimente + 1];
-			for (int i = 0; i < nrEvenimente; i++)
-				newEvenimente[i] = evenimente[i];
-			delete[] evenimente;
-			evenimente = newEvenimente;
-			cin >> evenimente[nrEvenimente];
-			for (int i = 0; i < evenimente[nrEvenimente].getNrZone(); i++)
-				cin >> evenimente[nrEvenimente].getZone()[i];
-			nrEvenimente++;*/
 	}
 }
 void MaestruEveniment::stergeEveniment(int id)
@@ -168,8 +159,10 @@ int MaestruEveniment::afiseazaEvenimente()
 {
 	if (!nrEvenimente) 
 		return 0;
+	cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
 	for (int i = 0; i < nrEvenimente; i++) 
 		cout << evenimente[i];
+	cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
 	return 1;
 }
 void MaestruEveniment::cumparaBilet(int id)
