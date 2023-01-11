@@ -1,2 +1,3 @@
 C:\Users\Zeek Liviu\OneDrive - Academia de Studii Economice din Bucuresti\Desktop\POO\Proiect\proiectPOOrefactorized\x64\Debug\ProiectPOO.exe
 C:\Users\thepr\Desktop\POO\ProiectPOO\x64\Debug\ProiectPOO.exe
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\x64\Debug\ProiectPOO.exe

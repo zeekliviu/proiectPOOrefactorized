@@ -1,6 +1,5 @@
 #pragma once
-#include <iostream>
-#include <string>
+#include "AdminPassword.h"
 using namespace std;
 class Bilet
 {
@@ -33,5 +32,7 @@ public:
 	void setNumarRand(unsigned int);
 	bool verificaBilet(string);
 	void setNrBilete(int);
+	void salveazaInFisier(ofstream&);
+	void restaureazaDinFisier(const char*, int, int, int, int*, int);
 };
 

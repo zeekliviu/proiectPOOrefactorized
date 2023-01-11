@@ -1,4 +1,3 @@
-#include "AdminPassword.h"
 #include "Zona.h"
 #include <regex>
 void combinatii_posibile(int n)
@@ -15,7 +14,7 @@ bool verifica_mail(string email)
 {
 	regex pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 	return regex_match(email, pattern);
-}
+} 
 string converteste_intArr_in_string(int* arr, unsigned int n)
 {
 	string s;
@@ -304,6 +303,72 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 	else
 		cout << "Randul nu exista!\n";
 }
+void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* ora, string denumireLoc, int rand, int loc, bool pe_mail, string mail, string nume)
+{
+	if(nrBilete == nrLocuri)
+	{
+		cout << "Nu mai sunt locuri disponibile in zona " << nume << "!\n";
+		return;
+	}
+	if (rand - 1 > 0 && rand - 1 <= nrMaximRanduri)
+		if (loc - 1 > 0 && loc - 1 <= nrMaximLocuri)
+			if (bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID() == nullptr)
+			{
+				bilete[(rand - 1) * nrMaximLocuri + loc - 1] = Bilet(nume.c_str(), rand - 1, loc - 1);
+				if (pe_mail)
+				{
+					if (!verifica_mail(mail))
+					{
+						cout << "Mail invalid!\n";
+						return;
+					}
+					string passkey;
+					cout << "Introdu passkey-ul pentru decriptarea credentialelor de pe care vei primi mail: ";
+					char c;
+					for (;;)
+					{
+						c = _getch();
+						if (c == 13)
+							break;
+						if (c != '\b')
+						{
+							passkey += c;
+							cout << "*";
+						}
+						else if (passkey.length() > 0 && c == '\b')
+						{
+							passkey.pop_back();
+							cout << "\b \b";
+						}
+					}
+					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" " + to_string(rand) + " " + to_string(loc) + " " + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + " \"" + ENC_MAIL + "\" \"" + ENC_PASS + "\" " + mail + " " + passkey;
+					cout << "Instalare pachete necesare executarii script-ului...\n";
+					system("py -m pip install -r req.txt");
+					cout << "\nPachetele au fost instalate cu succes.\n";
+					cout << "Executare main.py...\n";
+					system(cmd.c_str());
+					cout << "\nScriptul a fost executat. Verifica-ti mail-ul!";
+					cin.ignore();
+					cin.clear();
+				}
+				else
+				{
+					cout << "Bilet cumparat cu succes! Noteaza-ti UID-ul undeva, vei avea nevoie de el pentru a-ti verifica biletul!\n";
+					int* UID = bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID();
+					unsigned dimUID = bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID();
+					cout << "UID: ";
+					for (unsigned int i = 0; i < dimUID; i++)
+						cout << UID[i];
+				}
+				nrBilete++;
+			}
+			else
+				cout << "Loc deja ocupat!\n";
+		else
+			cout <<"Loc inexistent!\n";
+	else
+		cout << "Rand inexistent!\n";
+}
 void Zona::verificaBilet()
 {
 	if (nrBilete == 0)
@@ -322,4 +387,59 @@ void Zona::verificaBilet()
 				return;
 			}
 	cout << "Biletul nu este valid!\n";
+}
+void Zona::verificaBilet(string UID)
+{
+	for (int i = 0; i < nrMaximLocuri * nrMaximRanduri; i++)
+		if (bilete[i].getUID())
+			if (converteste_intArr_in_string(bilete[i].getUID(), bilete[i].getDimUID()) == UID)
+				cout << "Biletul este valid!\n";
+			else
+				cout << "Biletul nu este valid!\n";
+}
+void Zona::salveazaInFisier(ofstream& out)
+{
+	int length = nume.length();
+	out.write((char*)&length, sizeof(int));
+	out.write(nume.c_str(), length + 1);
+	out.write((char*)&nrLocuri, sizeof(int));
+	out.write((char*)&nrMaximRanduri, sizeof(int));
+	out.write((char*)&nrMaximLocuri, sizeof(int));
+	out.write((char*)&nrBilete, sizeof(int));
+	for (unsigned int i = 0; i < nrMaximLocuri * nrMaximRanduri; i++)
+		if (bilete[i].getUID() != nullptr)
+			bilete[i].salveazaInFisier(out);
+}
+void Zona::restaureazaDinFisier(ifstream& in)
+{
+	int length;
+	in.read((char*)&length, sizeof(int));
+	char* buffer = new char[length + 1];
+	in.read(buffer, length + 1);
+	nume = buffer;
+	delete[] buffer;
+	in.read((char*)&nrLocuri, sizeof(int));
+	in.read((char*)&nrMaximRanduri, sizeof(int));
+	in.read((char*)&nrMaximLocuri, sizeof(int));
+	in.read((char*)&nrBilete, sizeof(int));
+	if (bilete)
+		delete[] bilete;
+	bilete = new Bilet[nrMaximRanduri * nrMaximLocuri];
+	for (unsigned int i = 0; i < nrBilete; i++)
+	{
+		in.read((char*)&length, sizeof(int));
+		buffer = new char[length + 1];
+		in.read(buffer, length + 1);
+		unsigned int nrRand;
+		in.read((char*)&nrRand, sizeof(unsigned int));
+		unsigned int nrLoc;
+		in.read((char*)&nrLoc, sizeof(unsigned int));
+		unsigned int dimUID;
+		in.read((char*)&dimUID, sizeof(unsigned int));
+		int* UID = new int[dimUID];
+		in.read((char*)UID, dimUID * sizeof(unsigned int));
+		unsigned int id;
+		in.read((char*)&id, sizeof(int));
+		bilete[nrRand * nrMaximLocuri + nrLoc].restaureazaDinFisier(buffer, nrLoc, nrRand, dimUID, UID, id);
+	}
 }

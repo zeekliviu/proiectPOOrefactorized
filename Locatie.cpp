@@ -48,3 +48,20 @@ void Locatie::setNume(string nume)
 {
 	this->nume = nume;
 }
+void Locatie::salveazaInFisier(ofstream& out)
+{
+	int length = nume.length();
+	out.write((char*)&length, sizeof(length));
+	out.write(nume.c_str(), length + 1);
+	out.write((char*)&nrMaximLocuri, sizeof(nrMaximLocuri));
+}
+void Locatie::restaureazaDinFisier(ifstream& in)
+{
+	int length;
+	in.read((char*)&length, sizeof(length));
+	char* buffer = new char[length + 1];
+	in.read(buffer, length + 1);
+	nume = buffer;
+	delete[] buffer;
+	in.read((char*)&nrMaximLocuri, sizeof(nrMaximLocuri));
+}

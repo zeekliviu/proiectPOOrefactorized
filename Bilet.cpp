@@ -8,7 +8,7 @@ Bilet::Bilet() : nrLoc(0), nrRand(0), dimUID(0)
 	strcpy_s(numeClient, strlen("Necunoscut") + 1, "Necunoscut");
 	UID = nullptr;
 }
-Bilet::Bilet(const char* numeClient, unsigned int nrLoc, unsigned int nrRand) : nrLoc(nrLoc), nrRand(nrRand)
+Bilet::Bilet(const char* numeClient, unsigned int nrRand, unsigned int nrLoc) : nrLoc(nrLoc), nrRand(nrRand)
 {
 	nrBilete++;
 	id = nrBilete;
@@ -187,4 +187,27 @@ bool Bilet::verificaBilet(string s)
 void Bilet::setNrBilete(int nrBilete)
 {
 	Bilet::nrBilete = nrBilete;
+}
+void Bilet::salveazaInFisier(ofstream& out)
+{
+	int length = strlen(numeClient);
+	out.write((char*)&length, sizeof(length));
+	out.write(numeClient, length + 1);
+	out.write((char*)&nrRand, sizeof(nrRand));
+	out.write((char*)&nrLoc, sizeof(nrLoc));
+	out.write((char*)&dimUID, sizeof(dimUID));
+	out.write((char*)UID, sizeof(int) * dimUID);
+	out.write((char*)&id, sizeof(id));
+}
+void Bilet::restaureazaDinFisier(const char* nume, int nrLoc, int nrRand, int dimUID, int* UID, int id)
+{
+	this->numeClient = new char[strlen(nume) + 1];
+	strcpy_s(this->numeClient, strlen(nume) + 1, nume);
+	this->nrLoc = nrLoc;
+	this->nrRand = nrRand;
+	this->dimUID = dimUID;
+	this->UID = new int[dimUID];
+	for (unsigned int i = 0; i < dimUID; i++)
+		this->UID[i] = UID[i];
+	this->id = id;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 class Locatie
@@ -19,5 +20,7 @@ public:
 	string getNume();
 	int getNrMaximLocuri();
 	void setNume(string);
+	void salveazaInFisier(ofstream&);
+	void restaureazaDinFisier(ifstream&);
 };
 

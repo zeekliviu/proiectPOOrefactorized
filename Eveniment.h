@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "Bilet.h"
 #include "Locatie.h"
 #include "Zona.h"
@@ -41,6 +39,10 @@ public:
 	Locatie* getLocatie();
 	int getTotalLocuriCumparate();
 	void cumparaBilet();
+	void cumparaBilet(string, string, int, int, bool, string);
 	void verificaBilet();
+	void verificaBilet(string, string);
+	void salveazaInFisier(ofstream&);
+	void restaureazaDinFisier(ifstream&);
 };
 

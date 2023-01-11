@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <string>
 #include "Bilet.h"
 #pragma warning(disable:4996)
 using namespace std;
@@ -28,6 +26,10 @@ public:
 	int operator*(const Zona&); // daca vrem sa determinam numarul de locuri din comasarea a doua zone
 	float operator/(const Zona&); // daca vrem sa determinam cat la suta din locurile obiectului curent reprezinta locurile din obiectul primit ca parametru
 	void cumparaBilet(const char*, const char*, const char*, string);
+	void cumparaBilet(const char*, const char*, const char*, string, int, int, bool, string, string);
 	void verificaBilet();
+	void verificaBilet(string);
+	void salveazaInFisier(ofstream&);
+	void restaureazaDinFisier(ifstream&);
 };
 

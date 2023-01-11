@@ -5,23 +5,33 @@
 using namespace std;
 int main(int argc, char** argv)
 {
-	// PLAYGROUND //	
+	// PLAYGROUND //
+		
+	// END PLAYGROUND //
 	
 	// START PROGRAM //
-	// restaurare date din fisier
-	if (argc > 1)
+
+	MaestruEveniment m;
+	ifstream f("restoration.bin", ios::in | ios::binary);
+	m.restaureazaDinFisier(f);
+	f.close();
+	if (argc == 2)
 	{
-		MaestruEveniment m;
-		// citire din fisier
-		m.citireFisier(argv[1]);
+		ifstream fis(argv[1], ios::in);
+		if (fis.is_open())
+		{
+			m.citesteFisier(fis);
+			fis.close();
+		}
+		else
+			cout << "Fisierul nu exista!" << endl;
 	}
 	else
 	{
-		MaestruEveniment m;
 		cout << "Bun venit la The Ticketing App !\n";
 		cout << "Autor: Liviu-Ioan Zecheru\n";
 		cout << "Seria E, Grupa 1061\n";
-		cout << "Versiunea: 1.0\n\n";
+		cout << "Versiunea: 2.0\n\n";
 		cout << "Logare ca: user/admin\n";
 		cout << "1. User\n";
 		cout << "2. Admin\nAlegerea ta: ";
@@ -245,8 +255,14 @@ int main(int argc, char** argv)
 				}
 			}
 			else if (optiune == 0)
-				system("cls"), cout << "Multumim ca ati apelat la serviciile noastre de ticketing. La revedere!\nMade with <3 by Zeek Liviu for Zeth Ticketing.\n";
+			{
+				system("cls");
+				cout << "Multumim ca ati apelat la serviciile noastre de ticketing. La revedere!\nMade with <3 by Zeek Liviu for Zeth Ticketing.\n";
+			}
 		} while (optiune != 0);
 	}
+	ofstream g("restoration.bin", ios::out | ios::binary);
+	m.salveazaInFisier(g);
+	g.close();
 	return 0;
 }

@@ -1,8 +1,8 @@
 #pragma once
-#include <iostream>
 #include "Eveniment.h"
+#include "Abstract.h"
 using namespace std;
-class MaestruEveniment
+class MaestruEveniment: public Abstract
 {
 private:
 	string nume;
@@ -20,6 +20,8 @@ public:
 	bool operator>(const MaestruEveniment&); // verifica daca numele obiectului curent este mai mare decat al celui primit ca parametru
 	bool operator>=(const MaestruEveniment&); // verifica daca lungimea parolei este mai mare sau egala cu parola obiectului primit ca parametru (in caz de egalitate, este posibil sa vorbim despre acelasi user)
 	string getNume();
+	int getNrEvenimente();
+	Eveniment* getEvenimente();
 	void setNume(const string&);
 	void setParola(const string&);
 	void adaugaEveniment();
@@ -27,5 +29,10 @@ public:
 	void modificaEveniment(int);
 	int afiseazaEvenimente();
 	void cumparaBilet(int);
+	void cumparaBilet(int, string, int, int, bool, string);
 	void verificaBilet(int);
+	void verificaBilet(int, string, string);
+	void salveazaInFisier(ofstream&);
+	void restaureazaDinFisier(ifstream&);
+	void citesteFisier(ifstream&);
 };

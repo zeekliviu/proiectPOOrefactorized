@@ -1,0 +1,8 @@
+USER -> Gigel
+namparola
+VREAU BILET LA Colorfest
+ZONA VIP
+RAND 1
+LOC 2
+VREAU BILETUL PE MAIL
+liviuzecheru@yahoo.com
