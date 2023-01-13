@@ -129,7 +129,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Abstract.cpp" />
     <ClCompile Include="Bilet.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="Eveniment.cpp" />
@@ -141,7 +140,6 @@
     <ClCompile Include="Zona.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Abstract.h" />
     <ClInclude Include="AdminPassword.h" />
     <ClInclude Include="Bilet.h" />
     <ClInclude Include="data.h" />

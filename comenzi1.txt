@@ -1,8 +1,8 @@
-USER -> Gigel
+USER -> "Andrei Muresan"
 namparola
 VREAU BILET LA Colorfest
-ZONA VIP
-RAND 1
+ZONA "Acces General"
+RAND 2
 LOC 2
 VREAU BILETUL PE MAIL
-liviuzecheru@yahoo.com
+zecheruliviu21@stud.ase.ro

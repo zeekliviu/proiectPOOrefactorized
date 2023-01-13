@@ -310,8 +310,8 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 		cout << "Nu mai sunt locuri disponibile in zona " << nume << "!\n";
 		return;
 	}
-	if (rand - 1 > 0 && rand - 1 <= nrMaximRanduri)
-		if (loc - 1 > 0 && loc - 1 <= nrMaximLocuri)
+	if ((unsigned)rand - 1 <= nrMaximRanduri)
+		if ((unsigned)loc-1 <= nrMaximLocuri)
 			if (bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID() == nullptr)
 			{
 				bilete[(rand - 1) * nrMaximLocuri + loc - 1] = Bilet(nume.c_str(), rand - 1, loc - 1);
@@ -327,7 +327,7 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 					char c;
 					for (;;)
 					{
-						c = _getch();
+						c = getch();
 						if (c == 13)
 							break;
 						if (c != '\b')
@@ -341,15 +341,14 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 							cout << "\b \b";
 						}
 					}
-					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" " + to_string(rand) + " " + to_string(loc) + " " + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + " \"" + ENC_MAIL + "\" \"" + ENC_PASS + "\" " + mail + " " + passkey;
-					cout << "Instalare pachete necesare executarii script-ului...\n";
+					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + this->nume + "\" " + to_string(rand) + " " + to_string(loc) + " " + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + " \"" + ENC_MAIL + "\" \"" + ENC_PASS + "\" " + mail + " " + passkey;
+					cout << "\nInstalare pachete necesare executarii script-ului...\n";
 					system("py -m pip install -r req.txt");
 					cout << "\nPachetele au fost instalate cu succes.\n";
 					cout << "Executare main.py...\n";
 					system(cmd.c_str());
 					cout << "\nScriptul a fost executat. Verifica-ti mail-ul!";
-					cin.ignore();
-					cin.clear();
+					system("timeout 5");
 				}
 				else
 				{
@@ -393,9 +392,13 @@ void Zona::verificaBilet(string UID)
 	for (int i = 0; i < nrMaximLocuri * nrMaximRanduri; i++)
 		if (bilete[i].getUID())
 			if (converteste_intArr_in_string(bilete[i].getUID(), bilete[i].getDimUID()) == UID)
-				cout << "Biletul este valid!\n";
+			{
+				cout << "Biletul este valid!\n", system("timeout 5"); return;
+			}
 			else
-				cout << "Biletul nu este valid!\n";
+			{
+				cout << "Biletul nu este valid!\n", system("timeout 5"); return;
+			}
 }
 void Zona::salveazaInFisier(ofstream& out)
 {

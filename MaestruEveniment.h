@@ -1,8 +1,8 @@
 #pragma once
 #include "Eveniment.h"
-#include "Abstract.h"
+#include "ISalvabil.h"
 using namespace std;
-class MaestruEveniment: public Abstract
+class MaestruEveniment: public ISalvabil
 {
 private:
 	string nume;
@@ -29,7 +29,7 @@ public:
 	void modificaEveniment(int);
 	int afiseazaEvenimente();
 	void cumparaBilet(int);
-	void cumparaBilet(int, string, int, int, bool, string);
+	void cumparaBilet(int, string, int, int, bool, string, string);
 	void verificaBilet(int);
 	void verificaBilet(int, string, string);
 	void salveazaInFisier(ofstream&);

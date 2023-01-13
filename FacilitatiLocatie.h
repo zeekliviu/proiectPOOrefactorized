@@ -1,7 +1,7 @@
 #pragma once
 #include "Locatie.h"
 class FacilitatiLocatie :
-    public Locatie
+	public Locatie, public ISalvabil
 {
 private:
 	bool areBar;

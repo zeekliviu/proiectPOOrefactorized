@@ -1,5 +1,6 @@
 #pragma once
 #include "AdminPassword.h"
+#include "ISalvabil.h"
 using namespace std;
 class Bilet
 {

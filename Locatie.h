@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "ISalvabil.h"
 using namespace std;
 class Locatie
 {

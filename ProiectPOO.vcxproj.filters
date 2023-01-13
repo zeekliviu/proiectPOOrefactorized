@@ -39,9 +39,6 @@
     <ClCompile Include="Zona.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Abstract.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FacilitatiLocatie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -69,9 +66,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Zona.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Abstract.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FacilitatiLocatie.h">

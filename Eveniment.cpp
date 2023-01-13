@@ -522,8 +522,6 @@ void Eveniment::cumparaBilet()
 			}
 			cout << "\t\t==============================\n" << endl;
 			cout << "ID-ul zonei la care vrei biletul: ";
-			cin.clear();
-			cin.ignore();
 			int zona = 0;
 			do
 			{
@@ -610,14 +608,17 @@ void Eveniment::verificaBilet()
 }
 void Eveniment::verificaBilet(string zona, string UID)
 {
+	bool ok = false;
 	for (int i = 0; i < nrZone; i++)
 	{
 		if (zone[i].getNume() == zona)
 		{
+			ok = true;
 			zone[i].verificaBilet(UID);
-			return;
+			break;
 		}
 	}
+	if(!ok)
 	cout << "Nu exista o zona cu numele " << zona << "!\n";
 }
 void Eveniment::salveazaInFisier(ofstream& out)

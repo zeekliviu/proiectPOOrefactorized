@@ -1,6 +1,7 @@
 ######### Importing Libraries #########
 
 import sys
+from os import system
 from fpdf import FPDF # necesita install
 from datetime import datetime
 import locale
@@ -31,8 +32,8 @@ pdf.add_page()
 
 ######### adaugare fonturi #########
 
-pdf.add_font('MSSansSerif', '', './micross.ttf', uni=True)
-pdf.add_font('Cascadia', '', './CascadiaMonoLight.ttf', uni=True)
+pdf.add_font('MSSansSerif', '', 'micross.ttf', uni=True)
+pdf.add_font('Cascadia', '', 'CascadiaMonoLight.ttf', uni=True)
 
 ######### adaugare fonturi #########
 
@@ -74,7 +75,7 @@ RAND = sys.argv[6]
 LOC = sys.argv[7]
 UID = sys.argv[8]
 QRCODE_UID = qrcode.make(UID)
-QRCODE_UID.save(f"qrcode{UID}.png")
+QRCODE_UID.save(f"qrcode{UID}.png") # ""
 DATA_DT = datetime.strptime(DATA, "%d/%m/%Y").strftime("%A %d %B %Y")
 
 pdf.set_font('Cascadia', '', 12)
@@ -89,7 +90,7 @@ pdf.cell(0, 15, f"RAND: {RAND}", 0, 1, 'L')
 pdf.cell(0, 0, f"LOC: {LOC}", 0, 1, 'L')
 pdf.image(f"qrcode{UID}.png", w=28, h=28, x=85, y=62)
 pdf.line(12, 90, 117, 90)
-
+image_addr = f"qrcode{UID}.png"
 pdf.set_font('Cascadia', '', 12)
 pdf.cell(0, 26.5, "UID: " + UID, 0, 1, 'C')
 ##############################
@@ -126,7 +127,7 @@ encoders.encode_base64(part)
 
 part.add_header(
     "Content-Disposition",
-    f"attachment; filename= {filename}",
+    f"attachment; filename={filename}",
 )
 
 message.attach(part)
@@ -136,3 +137,5 @@ context = ssl.create_default_context()
 with smtplib.SMTP_SSL("smtp.hostinger.com", 465, context=context) as server:
     server.login(sender_email, password)
     server.sendmail(sender_email, receiver_email, text)
+system(f'cmd /c "del {filename}"')
+system(f'cmd /c "del {image_addr}"')

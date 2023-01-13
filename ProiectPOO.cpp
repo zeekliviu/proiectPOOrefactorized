@@ -255,14 +255,15 @@ int main(int argc, char** argv)
 				}
 			}
 			else if (optiune == 0)
-			{
 				system("cls");
-				cout << "Multumim ca ati apelat la serviciile noastre de ticketing. La revedere!\nMade with <3 by Zeek Liviu for Zeth Ticketing.\n";
-			}
+			
 		} while (optiune != 0);
 	}
 	ofstream g("restoration.bin", ios::out | ios::binary);
 	m.salveazaInFisier(g);
 	g.close();
+	system("pause");
+	system("cls");
+	cout << "Multumim ca ati apelat la serviciile noastre de ticketing. La revedere!\nMade with <3 by Zeek Liviu for Zeth Ticketing.\n";
 	return 0;
 }

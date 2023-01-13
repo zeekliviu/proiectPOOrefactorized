@@ -208,7 +208,7 @@ void MaestruEveniment::cumparaBilet(int id)
 	if (!ok) 
 		cout << "Evenimentul nu exista\n";
 }
-void MaestruEveniment::cumparaBilet(int id, string zona, int rand, int loc, bool pe_mail, string email)
+void MaestruEveniment::cumparaBilet(int id, string zona, int rand, int loc, bool pe_mail, string email, string nume)
 {
 	if (nrEvenimente == 0)
 		return;
@@ -384,18 +384,28 @@ void MaestruEveniment::citesteFisier(ifstream& f)
 	}
 	else if (cumpara)
 	{
+		bool ok = false;
 		for (int i = 0; i < nrEvenimente; i++)
 			if (evenimente[i].getDenumire() == c_eveniment)
-				cumparaBilet(i, zona, rand, loc, pe_mail, mail);
-			else
-				cout << "Eveniment inexistent!";
+			{
+				ok = true;
+				cumparaBilet(evenimente[i].getId(), zona, rand, loc, pe_mail, mail, nume); 
+				break;
+			}
+		if(!ok)
+			cout << "Nu exista evenimentul " << c_eveniment << "!\n";
 	}
 	else if (verifica)
 	{
+		bool ok = false;
 		for (int i = 0; i < nrEvenimente; i++)
 			if (evenimente[i].getDenumire() == v_eveniment)
-				verificaBilet(i, zona, UID);
-			else
-				cout << "Eveniment inexistent!";
+			{
+				ok = true;
+				verificaBilet(evenimente[i].getId(), zona, UID);
+				break;
+			}
+		if(!ok)
+			cout << "Nu exista evenimentul " << v_eveniment << "!\n";
 	}
 }

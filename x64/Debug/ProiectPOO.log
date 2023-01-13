@@ -1,2 +1,22 @@
-﻿  ProiectPOO.cpp
+﻿  Bilet.cpp
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Bilet.cpp(193,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Bilet.cpp(210,29): warning C4018: '<': signed/unsigned mismatch
+  data.cpp
+  Eveniment.cpp
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(626,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(629,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(632,22): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  FacilitatiLocatie.cpp
+  Locatie.cpp
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Locatie.cpp(53,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  MaestruEveniment.cpp
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\MaestruEveniment.cpp(258,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\MaestruEveniment.cpp(261,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  ProiectPOO.cpp
+  timp.cpp
+  Zona.cpp
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(392,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(405,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(431,29): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   ProiectPOO.vcxproj -> C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\x64\Debug\ProiectPOO.exe
