@@ -15,8 +15,8 @@ C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\MaestruEveniment.cpp(26
   ProiectPOO.cpp
   timp.cpp
   Zona.cpp
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(392,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(405,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(431,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(359,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(372,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(398,29): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   ProiectPOO.vcxproj -> C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\x64\Debug\ProiectPOO.exe

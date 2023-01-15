@@ -244,42 +244,12 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 							cout << "\b \b";
 						}
 					}
-					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + nume + "\" \"" + to_string(rand) + "\" \"" + to_string(loc) + "\" \"" + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + "\" \"" + sender_mail + "\" \"" + sender_pass + "\" \"" + mail + "\" \"" + passkey + "\"";
-					cout << "\nAi Python instalat pe dispozitivul tau? (Y/N): ";
-					cin >> c;
-					if (c == 'Y' || c == 'y')
-					{
-						cout << "Instalare pachete necesare executarii script-ului...\n";
-						system("py -m pip install -r req.txt");
-						cout << "\nPachetele au fost instalate cu succes.\n";
-						cout << "Executare main.py...\n";
-						system(cmd.c_str());
-						cout << "\nScriptul a fost executat. Verifica-ti mail-ul!";
-						cin.ignore();
-						cin.clear();
-					}
-					else
-					{
-						cout << "Instalare Python...\nAstept permisiunea de a instala Python...Uita-te in taskbar!\n";
-						system("Python.exe /quiet PrependPath=1");
-						cout << "Instalarea a fost efectuata cu succes!\n";
-						cout << "Instalare pachete necesare executarii script-ului...\n";
-						system("py -m pip install -r req.txt");
-						cout << "\nPachetele au fost instalate cu succes.\n";
-						cout << "Executare main.py...\n";
-						system(cmd.c_str());
-						cout << "Scriptul a fost executat. Verifica-ti mail-ul!\n";
-						cout << "Vrei sa stergi Python de pe dispozitivul tau? Recomand sa n-o faci, e un limbaj de programare super! :) (Y/N): ";
-						cin >> c;
-						if (c == 'Y' || c == 'y')
-						{
-							cout << "Stergere Python... Urmeaza pasii din interfata grafica pentru a dezinstala Python!\n";
-							system("Python.exe");
-							cout << "Python a fost sters cu succes!\n";
-						}
-						cin.ignore();
-						cin.clear();
-					}
+					string cmd = "main.exe \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + nume + "\" \"" + to_string(rand) + "\" \"" + to_string(loc) + "\" \"" + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + "\" \"" + sender_mail + "\" \"" + sender_pass + "\" \"" + mail + "\" \"" + passkey + "\"";
+					cout << "\nGenerare bilet si trimitere pe mail...\n";
+					system(cmd.c_str());
+					cout << "\nEmail-ul a fost trimis. Verifica-ti cutia postala!\n\n";
+					cin.ignore();
+					cin.clear();
 				}
 				else
 				{
@@ -341,13 +311,10 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 							cout << "\b \b";
 						}
 					}
-					string cmd = "py main.py \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + this->nume + "\" " + to_string(rand) + " " + to_string(loc) + " " + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + " \"" + ENC_MAIL + "\" \"" + ENC_PASS + "\" " + mail + " " + passkey;
-					cout << "\nInstalare pachete necesare executarii script-ului...\n";
-					system("py -m pip install -r req.txt");
-					cout << "\nPachetele au fost instalate cu succes.\n";
-					cout << "Executare main.py...\n";
+					string cmd = "main.exe \"" + string(denumireEv) + "\" \"" + string(data) + "\" \"" + string(ora) + "\" \"" + denumireLoc + "\" \"" + this->nume + "\" " + to_string(rand) + " " + to_string(loc) + " " + converteste_intArr_in_string(bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID(), bilete[(rand - 1) * nrMaximLocuri + loc - 1].getDimUID()) + " \"" + ENC_MAIL + "\" \"" + ENC_PASS + "\" " + mail + " " + passkey;
+					cout << "\nGenerare bilet si trimitere pe mail...\n";
 					system(cmd.c_str());
-					cout << "\nScriptul a fost executat. Verifica-ti mail-ul!";
+					cout << "\nEmail-ul a fost trimis. Verifica-ti cutia postala!";
 					system("timeout 5");
 				}
 				else
