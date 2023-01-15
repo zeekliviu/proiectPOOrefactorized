@@ -1,4 +1,0 @@
-fpdf
-qrcode
-Pillow
-cryptocode
