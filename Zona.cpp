@@ -2,19 +2,19 @@
 #include <regex>
 void combinatii_posibile(int n)
 {
-	if(n==1)
+	if (n == 1)
 		cout << "1 loc pe 1 rand." << endl;
 	for (int i = 1; i <= sqrt(n); i++)
 		if (n % i == 0)
 			if (i != (n / i))
-			cout << i << " rand(uri) si " << n / i << " locuri pe rand sau invers, adica " << n / i << " randuri si " << i << " loc(uri) pe rand.\n";
+				cout << i << " rand(uri) si " << n / i << " locuri pe rand sau invers, adica " << n / i << " randuri si " << i << " loc(uri) pe rand.\n";
 			else cout << i << " randuri si " << n / i << " locuri pe rand.\n";
 }
 bool verifica_mail(string email)
 {
 	regex pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 	return regex_match(email, pattern);
-} 
+}
 string converteste_intArr_in_string(int* arr, unsigned int n)
 {
 	string s;
@@ -44,7 +44,7 @@ Zona::Zona(const Zona& z)
 {
 	nume = z.nume;
 	nrLocuri = z.nrLocuri;
-	bilete = new Bilet[z.nrMaximLocuri*z.nrMaximRanduri];
+	bilete = new Bilet[z.nrMaximLocuri * z.nrMaximRanduri];
 	for (int i = 0; i < z.nrBilete; i++)
 		bilete[i] = z.bilete[i];
 	nrBilete = z.nrBilete;
@@ -53,16 +53,20 @@ Zona::Zona(const Zona& z)
 }
 Zona& Zona::operator=(const Zona& z)
 {
-	nume = z.nume;
-	nrLocuri = z.nrLocuri;
-	if(bilete)
-		delete[] bilete;
-	bilete = new Bilet[z.nrMaximLocuri * z.nrMaximRanduri];
-	for (int i = 0; i < z.nrBilete; i++)
-		bilete[i] = z.bilete[i];
-	nrBilete = z.nrBilete;
-	nrMaximLocuri = z.nrMaximLocuri;
-	nrMaximRanduri = z.nrMaximRanduri;
+	if (this != &z)
+	{
+		nume = z.nume;
+		nrLocuri = z.nrLocuri;
+		if (bilete)
+			delete[] bilete;
+		bilete = new Bilet[z.nrMaximLocuri * z.nrMaximRanduri];
+		for (int i = 0; i < z.nrMaximLocuri * z.nrMaximRanduri; i++)
+			if (z.bilete[i].getUID() != nullptr)
+				bilete[i] = z.bilete[i];
+		nrBilete = z.nrBilete;
+		nrMaximLocuri = z.nrMaximLocuri;
+		nrMaximRanduri = z.nrMaximRanduri;
+	}
 	return *this;
 }
 string Zona::getNume()
@@ -96,7 +100,7 @@ ostream& operator<<(ostream& out, const Zona& z)
 		for (unsigned int j = 0; j < z.nrMaximLocuri; j++)
 		{
 			if (z.bilete[i * z.nrMaximLocuri + j].getUID() != nullptr)
-				out << "|_"<<char(1)<<"_|";
+				out << "|_" << char(1) << "_|";
 			else out << "|___|";
 		}
 		out << "\n\t\t\t ";
@@ -104,8 +108,8 @@ ostream& operator<<(ostream& out, const Zona& z)
 			out << j + 1 << "    ";
 		out << "\n";
 	}
-					
-	out << "\n\t\tUnde "<<char(1)<<" reprezinta loc ocupat.\n"<<"\t\tNumar bilete disponibile : " << z.nrLocuri - z.nrBilete << endl;
+
+	out << "\n\t\tUnde " << char(1) << " reprezinta loc ocupat.\n" << "\t\tNumar bilete disponibile : " << z.nrLocuri - z.nrBilete << endl;
 	return out;
 }
 istream& operator>>(istream& in, Zona& z)
@@ -130,9 +134,9 @@ istream& operator>>(istream& in, Zona& z)
 		if (z.nrMaximRanduri <= 0 || (z.nrLocuri % z.nrMaximRanduri != 0))
 			cout << "Numar invalid! Mai incearca!\nIntrodu numarul de randuri: ";
 	} while (z.nrMaximRanduri <= 0 || (z.nrLocuri % z.nrMaximRanduri != 0));
-	cout << "Deci numarul de locuri pe rand va fi " << z.nrLocuri / z.nrMaximRanduri << "."<< endl;
+	cout << "Deci numarul de locuri pe rand va fi " << z.nrLocuri / z.nrMaximRanduri << "." << endl;
 	z.nrMaximLocuri = z.nrLocuri / z.nrMaximRanduri;
-	if(z.bilete)
+	if (z.bilete)
 		delete[] z.bilete;
 	z.bilete = new Bilet[z.nrMaximRanduri * z.nrMaximLocuri];
 	return in;
@@ -186,7 +190,7 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 		if (rand <= 0)
 			cout << "Numar invalid! Mai incearca!\nIntrodu numarul randului: ";
 	} while (rand <= 0);
-	if ((unsigned int)rand-1 <= nrMaximRanduri)
+	if ((unsigned int)rand - 1 <= nrMaximRanduri)
 	{
 		cout << "Numar loc dorit: ";
 		int loc;
@@ -206,11 +210,11 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 			if (loc <= 0)
 				cout << "Numar invalid! Mai incearca!\nIntrodu numarul locului: ";
 		} while (loc <= 0);
-		if ((unsigned int)loc-1 <= nrMaximLocuri)
+		if ((unsigned int)loc - 1 <= nrMaximLocuri)
 		{
 			if (bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID() == nullptr)
 			{
-				bilete[(rand - 1) * nrMaximLocuri + loc - 1] = Bilet(numeclient.c_str(), rand-1, loc-1);
+				bilete[(rand - 1) * nrMaximLocuri + loc - 1] = Bilet(numeclient.c_str(), rand - 1, loc - 1);
 				cout << "Bilet cumparat cu succes! Vrei sa ti-l trimitem pe mail? (Y/N): ";
 				char c;
 				cin >> c;
@@ -275,13 +279,13 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 }
 void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* ora, string denumireLoc, int rand, int loc, bool pe_mail, string mail, string nume)
 {
-	if(nrBilete == nrLocuri)
+	if (nrBilete == nrLocuri)
 	{
 		cout << "Nu mai sunt locuri disponibile in zona " << nume << "!\n";
 		return;
 	}
 	if ((unsigned)rand - 1 <= nrMaximRanduri)
-		if ((unsigned)loc-1 <= nrMaximLocuri)
+		if ((unsigned)loc - 1 <= nrMaximLocuri)
 			if (bilete[(rand - 1) * nrMaximLocuri + loc - 1].getUID() == nullptr)
 			{
 				bilete[(rand - 1) * nrMaximLocuri + loc - 1] = Bilet(nume.c_str(), rand - 1, loc - 1);
@@ -331,7 +335,7 @@ void Zona::cumparaBilet(const char* denumireEv, const char* data, const char* or
 			else
 				cout << "Loc deja ocupat!\n";
 		else
-			cout <<"Loc inexistent!\n";
+			cout << "Loc inexistent!\n";
 	else
 		cout << "Rand inexistent!\n";
 }
@@ -345,7 +349,7 @@ void Zona::verificaBilet()
 	cout << "Introduceti UID-ul biletului: ";
 	string UID;
 	getline(cin, UID);
-	for (unsigned int i = 0; i < nrMaximLocuri*nrMaximRanduri; i++)
+	for (unsigned int i = 0; i < nrMaximLocuri * nrMaximRanduri; i++)
 		if (bilete[i].getUID() != nullptr)
 			if (bilete[i].verificaBilet(UID.c_str()))
 			{
@@ -370,12 +374,12 @@ void Zona::verificaBilet(string UID)
 void Zona::salveazaInFisier(ofstream& out)
 {
 	int length = nume.length();
-	out.write((char*)&length, sizeof(int));
+	out.write((char*)&length, sizeof(length));
 	out.write(nume.c_str(), length + 1);
-	out.write((char*)&nrLocuri, sizeof(int));
-	out.write((char*)&nrMaximRanduri, sizeof(int));
-	out.write((char*)&nrMaximLocuri, sizeof(int));
-	out.write((char*)&nrBilete, sizeof(int));
+	out.write((char*)&nrLocuri, sizeof(nrLocuri));
+	out.write((char*)&nrMaximRanduri, sizeof(nrMaximRanduri));
+	out.write((char*)&nrMaximLocuri, sizeof(nrMaximLocuri));
+	out.write((char*)&nrBilete, sizeof(nrBilete));
 	for (unsigned int i = 0; i < nrMaximLocuri * nrMaximRanduri; i++)
 		if (bilete[i].getUID() != nullptr)
 			bilete[i].salveazaInFisier(out);
@@ -383,33 +387,22 @@ void Zona::salveazaInFisier(ofstream& out)
 void Zona::restaureazaDinFisier(ifstream& in)
 {
 	int length;
-	in.read((char*)&length, sizeof(int));
+	in.read((char*)&length, sizeof(length));
 	char* buffer = new char[length + 1];
 	in.read(buffer, length + 1);
 	nume = buffer;
 	delete[] buffer;
-	in.read((char*)&nrLocuri, sizeof(int));
-	in.read((char*)&nrMaximRanduri, sizeof(int));
-	in.read((char*)&nrMaximLocuri, sizeof(int));
-	in.read((char*)&nrBilete, sizeof(int));
+	in.read((char*)&nrLocuri, sizeof(nrLocuri));
+	in.read((char*)&nrMaximRanduri, sizeof(nrMaximRanduri));
+	in.read((char*)&nrMaximLocuri, sizeof(nrMaximLocuri));
+	in.read((char*)&nrBilete, sizeof(nrBilete));
 	if (bilete)
 		delete[] bilete;
-	bilete = new Bilet[nrMaximRanduri * nrMaximLocuri];
-	for (unsigned int i = 0; i < nrBilete; i++)
+	bilete = new Bilet[nrMaximLocuri * nrMaximRanduri];
+	for (unsigned i = 0; i < nrBilete; i++)
 	{
-		in.read((char*)&length, sizeof(int));
-		buffer = new char[length + 1];
-		in.read(buffer, length + 1);
-		unsigned int nrRand;
-		in.read((char*)&nrRand, sizeof(unsigned int));
-		unsigned int nrLoc;
-		in.read((char*)&nrLoc, sizeof(unsigned int));
-		unsigned int dimUID;
-		in.read((char*)&dimUID, sizeof(unsigned int));
-		int* UID = new int[dimUID];
-		in.read((char*)UID, dimUID * sizeof(unsigned int));
-		unsigned int id;
-		in.read((char*)&id, sizeof(int));
-		bilete[nrRand * nrMaximLocuri + nrLoc].restaureazaDinFisier(buffer, nrLoc, nrRand, dimUID, UID, id);
+		Bilet b;
+		b.restaureazaDinFisier(in);
+		bilete[b.getNrRand() * nrMaximLocuri + b.getNrLoc()] = b;
 	}
 }

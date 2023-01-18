@@ -34,6 +34,6 @@ public:
 	bool verificaBilet(string);
 	void setNrBilete(int);
 	void salveazaInFisier(ofstream&);
-	void restaureazaDinFisier(const char*, int, int, int, int*, int);
+	void restaureazaDinFisier(ifstream& in);
 };
 

@@ -6,13 +6,14 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	// PLAYGROUND //
-		
+	
 	// END PLAYGROUND //
 	
 	// START PROGRAM //
 
+	
 	MaestruEveniment m;
-	ifstream f("restoration.bin", ios::in | ios::binary);
+	ifstream f("restaurare.bin", ios::in | ios::binary);
 	m.restaureazaDinFisier(f);
 	f.close();
 	if (argc == 2)
@@ -115,7 +116,6 @@ int main(int argc, char** argv)
 						break;
 					if (sscanf(buf, "%d %c", &optiune, &cc) != 1)
 					{
-						system("cls");
 						cout << "Optiune invalida! Mai incearca!\nAlegerea ta: ";
 						continue;
 					}
@@ -259,7 +259,7 @@ int main(int argc, char** argv)
 			
 		} while (optiune != 0);
 	}
-	ofstream g("restoration.bin", ios::out | ios::binary);
+	ofstream g("restaurare.bin", ios::out | ios::binary);
 	m.salveazaInFisier(g);
 	g.close();
 	system("pause");

@@ -1,8 +1,8 @@
-USER -> "Andrei Muresan"
+USER -> "Lee Harvey Oswald"
 namparola
-VREAU BILET LA Colorfest
-ZONA "Acces General"
-RAND 2
-LOC 2
-VREAU BILETUL PE MAIL
+VREAU BILET LA "Asasinarea lui Kennedy"
+ZONA "Sniper's Window"
+RAND 1
+LOC 1
+VREAU BILETUL PE MAIL 
 zecheruliviu21@stud.ase.ro

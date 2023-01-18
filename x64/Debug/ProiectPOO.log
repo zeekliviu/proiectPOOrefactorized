@@ -1,11 +1,10 @@
 ﻿  Bilet.cpp
 C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Bilet.cpp(193,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Bilet.cpp(210,29): warning C4018: '<': signed/unsigned mismatch
   data.cpp
   Eveniment.cpp
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(626,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(629,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(632,22): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(627,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(630,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Eveniment.cpp(633,22): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   FacilitatiLocatie.cpp
   Locatie.cpp
 C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Locatie.cpp(53,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
@@ -15,8 +14,9 @@ C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\MaestruEveniment.cpp(26
   ProiectPOO.cpp
   timp.cpp
   Zona.cpp
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(359,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(372,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(398,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(63,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(363,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(376,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\Zona.cpp(402,25): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   ProiectPOO.vcxproj -> C:\Users\thepr\Desktop\proiectPOOrefactorized\ProiectPOO\x64\Debug\ProiectPOO.exe

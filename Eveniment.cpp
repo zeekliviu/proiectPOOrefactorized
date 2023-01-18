@@ -99,20 +99,20 @@ ostream& operator<<(ostream& out, const Eveniment& e)
 	out << "=========== Data: " << e.data << endl;
 	out << "=========== Ora: " << e.ora << endl;
 	out << "=========== Numar zone: " << e.nrZone << endl;
-	out << "=========== Denumire zone & locuri pe zona: "<<endl;
+	out << "=========== Denumire zone & locuri pe zona: " << endl;
 	out << "\t\t============ ZONE ============\n" << endl;
 	if (e.nrZone == 0)
 		out << "\t\tNu exista zone disponibile.\n" << endl;
 	else for (int i = 0; i < e.nrZone; i++)
 	{
-		out << "\t\tID: " << i+1 << endl;
+		out << "\t\tID: " << i + 1 << endl;
 		out << e.zone[i] << endl;
 	}
 	out << "\t\t============ ZONE ============" << endl;
 	out << "=========== Numar maxim de locuri: " << e.locatie->getNrMaximLocuri() << endl;
 	Eveniment* ev = const_cast<Eveniment*>(&e);
 	out << "=========== Numar bilete vandute: " << ev->getTotalLocuriCumparate() << endl;
-	out << "=========== Locuri disponibile: " << e.locatie->getNrMaximLocuri() - ev->getTotalLocuriCumparate() << endl<<endl<<endl;
+	out << "=========== Locuri disponibile: " << e.locatie->getNrMaximLocuri() - ev->getTotalLocuriCumparate() << endl << endl << endl;
 	return out;
 }
 istream& operator>>(istream& in, Eveniment& e)
@@ -153,7 +153,7 @@ istream& operator>>(istream& in, Eveniment& e)
 	bool is_ok = false;
 	if (buffer.length() == 10)
 	{
-		
+
 		int an, luna, zi;
 		an = atoi(buffer.c_str() + 6);
 		luna = atoi(buffer.c_str() + 3);
@@ -165,7 +165,7 @@ istream& operator>>(istream& in, Eveniment& e)
 			is_ok = false;
 		if (!isdigit(buffer[0]) || !isdigit(buffer[1]) || !isdigit(buffer[3]) || !isdigit(buffer[4]) || !isdigit(buffer[6]) || !isdigit(buffer[7]) || !isdigit(buffer[8]) || !isdigit(buffer[9]))
 			is_ok = false;
-		if(buffer[6]=='0')
+		if (buffer[6] == '0')
 			is_ok = false;
 	}
 	while (!is_ok)
@@ -355,7 +355,7 @@ istream& operator>>(istream& in, Eveniment& e)
 			e.zone[i].setNume(nume.c_str());
 			e.zone[i].setNrLocuri(nrLocuri);
 		}
-		else 
+		else
 		{
 			if (e.locatie->getNrMaximLocuri() - nrLocuriPrecedente == 0)
 			{
@@ -399,8 +399,8 @@ istream& operator>>(istream& in, Eveniment& e)
 	{
 		cout << "Au ramas " << locuri_nealocate << " locuri nealocate niciunei zone.\nPot fi alocate intr-una din urmatoarele zone:\n";
 		for (int i = 0; i < e.nrZone; i++)
-			cout << i+1<<". Zona " << e.zone[i].getNume() << " are " << e.zone[i].getNrLocuri() << " locuri.\n";
-		cout << "Unde doriti sa le alocate?\nNumar zona:";
+			cout << i + 1 << ". Zona " << e.zone[i].getNume() << " are " << e.zone[i].getNrLocuri() << " locuri.\n";
+		cout << "Unde doriti sa le alocate?\nNumar zona: ";
 		int rasp;
 		do
 		{
@@ -415,9 +415,10 @@ istream& operator>>(istream& in, Eveniment& e)
 				}
 				break;
 			}
-			if(rasp - 1 < 0 || rasp - 1 > e.nrZone)
+			if (rasp - 1 < 0 || rasp - 1 > e.nrZone)
 				cout << "Numar invalid! Mai incearca\nIntrodu numarul zonei: ";
 		} while (rasp - 1 < 0 || rasp - 1 > e.nrZone);
+		e.zone[rasp - 1].setNrLocuri(e.zone[rasp - 1].getNrLocuri() + locuri_nealocate);
 	}
 	return in;
 }
@@ -500,7 +501,7 @@ int Eveniment::getTotalLocuriCumparate()
 }
 void Eveniment::cumparaBilet()
 {
-	
+
 	if (getTotalLocuriCumparate() == locatie->getNrMaximLocuri())
 	{
 		cout << "Nu mai sunt locuri disponibile la acest eveniment!\n";
@@ -512,7 +513,7 @@ void Eveniment::cumparaBilet()
 		cout << "\t\t============ ZONE ============\n" << endl;
 		if (nrZone == 0)
 			cout << "\t\tNu exista zone disponibile." << endl,
-		cout << "\t\t==============================\n" << endl;
+			cout << "\t\t==============================\n" << endl;
 		else
 		{
 			for (int i = 0; i < nrZone; i++)
@@ -618,8 +619,8 @@ void Eveniment::verificaBilet(string zona, string UID)
 			break;
 		}
 	}
-	if(!ok)
-	cout << "Nu exista o zona cu numele " << zona << "!\n";
+	if (!ok)
+		cout << "Nu exista o zona cu numele " << zona << "!\n";
 }
 void Eveniment::salveazaInFisier(ofstream& out)
 {
@@ -652,5 +653,5 @@ void Eveniment::restaureazaDinFisier(ifstream& in)
 	locatie->restaureazaDinFisier(in);
 	in.read((char*)&nrZone, sizeof nrZone);
 	for (int i = 0; i < nrZone; i++)
-			zone[i].restaureazaDinFisier(in);
+		zone[i].restaureazaDinFisier(in);
 }

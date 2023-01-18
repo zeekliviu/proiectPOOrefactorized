@@ -91,7 +91,7 @@ Eveniment* MaestruEveniment::getEvenimente()
 }
 void MaestruEveniment::setNume(const string& nume)
 {
-		this->nume = nume;
+	this->nume = nume;
 }
 void MaestruEveniment::setParola(const string& parola)
 {
@@ -100,7 +100,7 @@ void MaestruEveniment::setParola(const string& parola)
 }
 void MaestruEveniment::adaugaEveniment()
 {
-	if(nume=="Admin")
+	if (nume == "Admin")
 	{
 		if (!evenimente)
 		{
@@ -115,35 +115,35 @@ void MaestruEveniment::adaugaEveniment()
 			Eveniment* aux = new Eveniment[nrEvenimente + 1];
 			for (int i = 0; i < nrEvenimente; i++)
 				aux[i] = evenimente[i];
+			cin >> aux[nrEvenimente];
+			for (int i = 0; i < aux[nrEvenimente].getNrZone(); i++)
+				cin >> aux[nrEvenimente].getZone()[i];
 			delete[] evenimente;
 			evenimente = aux;
-			cin >> evenimente[nrEvenimente];
-			for (int i = 0; i < evenimente[nrEvenimente].getNrZone(); i++)
-				cin >> evenimente[nrEvenimente].getZone()[i];
 			nrEvenimente++;
 		}
 	}
 }
 void MaestruEveniment::stergeEveniment(int id)
 {
-	if (nume != "Admin") 
+	if (nume != "Admin")
 		return;
-	
 
-	if (nrEvenimente == 0) 
+
+	if (nrEvenimente == 0)
 		return;
-	
+
 
 	bool ok = false;
-	for (int i = 0; i < nrEvenimente; i++) 
-		if (evenimente[i].getId() == id) 
+	for (int i = 0; i < nrEvenimente; i++)
+		if (evenimente[i].getId() == id)
 		{
 			ok = true;
 			break;
 		}
-	
 
-	if (!ok) 
+
+	if (!ok)
 	{
 		cout << "Evenimentul nu exista\n";
 		return;
@@ -151,61 +151,61 @@ void MaestruEveniment::stergeEveniment(int id)
 
 	Eveniment* aux = new Eveniment[nrEvenimente - 1];
 	int j = 0;
-	for (int i = 0; i < nrEvenimente; i++) 
-		if (evenimente[i].getId() != id) 
+	for (int i = 0; i < nrEvenimente; i++)
+		if (evenimente[i].getId() != id)
 			aux[j++] = evenimente[i];
-		
+
 	delete[] evenimente;
 	nrEvenimente--;
 	evenimente = new Eveniment[nrEvenimente];
-	for (int i = 0; i < nrEvenimente; i++) 
+	for (int i = 0; i < nrEvenimente; i++)
 		evenimente[i] = aux[i];
 	delete[] aux;
 }
 
 void MaestruEveniment::modificaEveniment(int id)
 {
-	if (nume != "Admin") 
+	if (nume != "Admin")
 		return;
 
 	if (nrEvenimente == 0)
 		return;
-	
+
 	bool ok = false;
-	for (int i = 0; i < nrEvenimente; i++) 
-		if (evenimente[i].getId() == id) 
+	for (int i = 0; i < nrEvenimente; i++)
+		if (evenimente[i].getId() == id)
 		{
 			ok = true;
 			cin >> evenimente[i];
 			break;
 		}
 
-	if (!ok) 
+	if (!ok)
 		cout << "Evenimentul nu exista\n";
 }
 int MaestruEveniment::afiseazaEvenimente()
 {
-	if (!nrEvenimente) 
+	if (!nrEvenimente)
 		return 0;
 	cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
-	for (int i = 0; i < nrEvenimente; i++) 
+	for (int i = 0; i < nrEvenimente; i++)
 		cout << evenimente[i];
 	cout << "=========================== LISTA EVENIMENTE ==========================\n\n";
 	return 1;
 }
 void MaestruEveniment::cumparaBilet(int id)
 {
-	if (nrEvenimente == 0) 
+	if (nrEvenimente == 0)
 		return;
 	bool ok = false;
-	for (int i = 0; i < nrEvenimente; i++) 
-		if (evenimente[i].getId() == id) 
+	for (int i = 0; i < nrEvenimente; i++)
+		if (evenimente[i].getId() == id)
 		{
 			ok = true;
 			evenimente[i].cumparaBilet();
 			break;
 		}
-	if (!ok) 
+	if (!ok)
 		cout << "Evenimentul nu exista\n";
 }
 void MaestruEveniment::cumparaBilet(int id, string zona, int rand, int loc, bool pe_mail, string email, string nume)
@@ -256,29 +256,30 @@ void MaestruEveniment::verificaBilet(int id, string zona, string UID)
 void MaestruEveniment::salveazaInFisier(ofstream& out)
 {
 	int length = nume.length();
-	out.write((char*)&length, sizeof(int));
+	out.write((char*)&length, sizeof(length));
 	out.write(nume.c_str(), length + 1);
 	length = parola.length();
-	out.write((char*)&length, sizeof(int));
+	out.write((char*)&length, sizeof(length));
 	out.write(parola.c_str(), length + 1);
 	out.write((char*)&nrEvenimente, sizeof(nrEvenimente));
 	for (int i = 0; i < nrEvenimente; i++)
-		this->evenimente[i].salveazaInFisier(out);
+		if (evenimente[i].getNrZone() != 0)
+			this->evenimente[i].salveazaInFisier(out);
 }
 void MaestruEveniment::restaureazaDinFisier(ifstream& in)
 {
 	int length;
-	in.read((char*)&length, sizeof(int));
+	in.read((char*)&length, sizeof(length));
 	char* aux = new char[length + 1];
 	in.read(aux, length + 1);
 	nume = aux;
 	delete[] aux;
-	in.read((char*)&length, sizeof(int));
+	in.read((char*)&length, sizeof(length));
 	aux = new char[length + 1];
 	in.read(aux, length + 1);
 	parola = aux;
 	delete[] aux;
-	in.read((char*)&nrEvenimente, sizeof(int));
+	in.read((char*)&nrEvenimente, sizeof(nrEvenimente));
 	if (evenimente)
 		delete[] evenimente;
 	evenimente = new Eveniment[nrEvenimente];
@@ -389,10 +390,10 @@ void MaestruEveniment::citesteFisier(ifstream& f)
 			if (evenimente[i].getDenumire() == c_eveniment)
 			{
 				ok = true;
-				cumparaBilet(evenimente[i].getId(), zona, rand, loc, pe_mail, mail, nume); 
+				cumparaBilet(evenimente[i].getId(), zona, rand, loc, pe_mail, mail, nume);
 				break;
 			}
-		if(!ok)
+		if (!ok)
 			cout << "Nu exista evenimentul " << c_eveniment << "!\n";
 	}
 	else if (verifica)
@@ -405,7 +406,7 @@ void MaestruEveniment::citesteFisier(ifstream& f)
 				verificaBilet(evenimente[i].getId(), zona, UID);
 				break;
 			}
-		if(!ok)
+		if (!ok)
 			cout << "Nu exista evenimentul " << v_eveniment << "!\n";
 	}
 }

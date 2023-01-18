@@ -2,7 +2,7 @@
 #include "Eveniment.h"
 #include "ISalvabil.h"
 using namespace std;
-class MaestruEveniment: public ISalvabil
+class MaestruEveniment : public ISalvabil
 {
 private:
 	string nume;

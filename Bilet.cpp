@@ -134,7 +134,7 @@ int Bilet::getNrRand()
 }
 int* Bilet::getUID()
 {
-	if(UID)
+	if (UID)
 	{
 		int* copieUID = new int[dimUID];
 		for (unsigned int i = 0; i < dimUID; i++)
@@ -153,7 +153,7 @@ void Bilet::setNumeClient(const char* numeClient)
 		delete[] this->numeClient;
 	this->numeClient = new char[strlen(numeClient) + 1];
 	strcpy_s(this->numeClient, strlen(numeClient) + 1, numeClient);
-	if(UID)
+	if (UID)
 		delete[] UID;
 	dimUID = (unsigned int)log10(id) + (unsigned int)strlen(numeClient) + 1;
 	UID = new int[dimUID];
@@ -169,13 +169,13 @@ void Bilet::setNumeClient(const char* numeClient)
 }
 void Bilet::setNumarLoc(unsigned int nrLoc)
 {
-	if(nrLoc)
-	this->nrLoc = nrLoc;
+	if (nrLoc)
+		this->nrLoc = nrLoc;
 }
 void Bilet::setNumarRand(unsigned int nrRand)
 {
-	if(nrRand)
-	this->nrRand = nrRand;
+	if (nrRand)
+		this->nrRand = nrRand;
 }
 bool Bilet::verificaBilet(string s)
 {
@@ -199,15 +199,19 @@ void Bilet::salveazaInFisier(ofstream& out)
 	out.write((char*)UID, sizeof(int) * dimUID);
 	out.write((char*)&id, sizeof(id));
 }
-void Bilet::restaureazaDinFisier(const char* nume, int nrLoc, int nrRand, int dimUID, int* UID, int id)
+void Bilet::restaureazaDinFisier(ifstream& in)
 {
-	this->numeClient = new char[strlen(nume) + 1];
-	strcpy_s(this->numeClient, strlen(nume) + 1, nume);
-	this->nrLoc = nrLoc;
-	this->nrRand = nrRand;
-	this->dimUID = dimUID;
-	this->UID = new int[dimUID];
-	for (unsigned int i = 0; i < dimUID; i++)
-		this->UID[i] = UID[i];
-	this->id = id;
+	int length;
+	in.read((char*)&length, sizeof(int));
+	delete[] numeClient;
+	numeClient = new char[length + 1];
+	in.read(numeClient, length + 1);
+	in.read((char*)&nrRand, sizeof(nrRand));
+	in.read((char*)&nrLoc, sizeof(nrLoc));
+	in.read((char*)&dimUID, sizeof(dimUID));
+	if (UID)
+		delete[] UID;
+	UID = new int[dimUID];
+	in.read((char*)UID, dimUID * sizeof(int));
+	in.read((char*)&id, sizeof(int));
 }
